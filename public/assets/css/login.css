@@ -21,6 +21,7 @@
     font-size: 16px;
     transition: background-color 0.3s ease;
   }
+  
   .open-btn:hover {
     background-color: #1599c9;
   }
@@ -30,12 +31,23 @@
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(3px);
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Modal showing with smooth animation */
+  .modal.show {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
   }
   
   /* Background shapes */
@@ -44,32 +56,40 @@
     width: 430px;
     height: 520px;
   }
+  
   .shape {
     position: absolute;
     border-radius: 50%;
   }
+  
   .shape:first-child {
-    width: 150px; height: 150px;
+    width: 150px;
+    height: 150px;
     background: linear-gradient(#1845ad, #23a2f6);
-    top: -10px; left: -55px;
+    top: -10px;
+    left: -55px;
   }
+  
   .shape:last-child {
-    width: 150px; height: 150px;
+    width: 150px;
+    height: 150px;
     background: linear-gradient(to right, #ff512f, #f09819);
-    bottom: -10px; right: -55px;
+    bottom: -10px;
+    right: -55px;
   }
   
   /* Login form */
   form {
     width: 400px;
     padding: 50px 35px;
-    background-color: rgba(255,255,255,0.13);
+    background-color: rgba(255, 255, 255, 0.13);
     border-radius: 10px;
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     backdrop-filter: blur(10px);
     position: relative;
     z-index: 1;
   }
+  
   form * {
     color: white;
     border: none;
@@ -78,20 +98,24 @@
     font-size: 14px;
     font-weight: 300;
   }
+  
   form label {
     font-weight: 500;
     font-size: 16px;
   }
+  
   form input {
     width: 100%;
     height: 50px;
-    background-color: rgba(255,255,255,0.07);
+    background-color: rgba(255, 255, 255, 0.07);
     border-radius: 3px;
     padding: 0 10px;
   }
+  
   form ::placeholder {
     color: #e5e5e5;
   }
+  
   form button[type="submit"] {
     width: 100%;
     margin-top: 30px;
@@ -116,21 +140,4 @@
     cursor: pointer;
   }
   
-  /* Social buttons */
-  .social {
-    margin-top: 30px;
-    display: flex;
-    gap: 10px;
-  }
-  .social div {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    background-color: rgba(255,255,255,0.27);
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  .social div:hover {
-    background-color: rgba(255,255,255,0.47);
-  }
   

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Glassmorphism Login Form</title>
   <link rel="stylesheet" href="assets/css/login.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -32,13 +32,22 @@
 
   <script>
     function openModal() {
-      document.getElementById("login").style.display = "flex";
+      const modal = document.getElementById("login");
+      modal.style.display = "flex";  
+      setTimeout(() => {
+        modal.classList.add("show");  
+      }, 10); 
     }
 
     function closeModal() {
-      document.getElementById("login").style.display = "none";
+      const modal = document.getElementById("login");
+      modal.classList.remove("show");  
+      setTimeout(() => {
+        modal.style.display = "none";  
+      }, 300); 
     }
   </script>
 
 </body>
+
 </html>
