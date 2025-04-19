@@ -99,7 +99,7 @@
         <h1 style="font-weight: 900">SELAMAT DATANG DI</h1>
         <h3 style="font-weight: 700; font-size: 30px;">SISTEM AKREDITASI JTI POLINEMA</h3>
         <br />
-        <button type="button" class="btn btn-primary btn-round">LOGIN</button>
+        @include('login')
       </div>
     </div>
   </div>
