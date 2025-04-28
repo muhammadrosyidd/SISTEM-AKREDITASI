@@ -8,9 +8,10 @@
   <link rel="icon" type="image/png" href="assets/img//favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Paper Kit by Creative Tim
+    AKREDITASI D4 SIB
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -30,7 +31,8 @@
           <img src="../public/assets/img/polinema_logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
           D4 SISTEM INFORMASI BISNIS
         </a>
-        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar bar1"></span>
           <span class="navbar-toggler-bar bar2"></span>
           <span class="navbar-toggler-bar bar3"></span>
@@ -40,48 +42,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a href="#" class="nav-link"><i class="fa fa-home"></i> Beranda</a>
-          </li>          
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownKriteria" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="nc-icon nc-book-bookmark"></i> Kriteria
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownKriteria">
-              <a class="dropdown-item" href="#">Kriteria 1</a>
-              <a class="dropdown-item" href="#">Kriteria 2</a>
-              <a class="dropdown-item" href="#">Kriteria 4</a>
-              <a class="dropdown-item" href="#">Kriteria 5</a>
-              <a class="dropdown-item" href="#">Kriteria 6</a>
-              <a class="dropdown-item" href="#">Kriteria 7</a>
-              <a class="dropdown-item" href="#">Kriteria 8</a>
-              <a class="dropdown-item" href="#">Kriteria 9</a>
-              
-            </div>
           </li>
-          
-          {{-- <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank">
-              <i class="fa fa-twitter"></i>
-              <p class="d-lg-none">Twitter</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank">
-              <i class="fa fa-facebook-square"></i>
-              <p class="d-lg-none">Facebook</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank">
-              <i class="fa fa-instagram"></i>
-              <p class="d-lg-none">Instagram</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="Star on GitHub" data-placement="bottom" href="https://www.github.com/CreativeTimOfficial" target="_blank">
-              <i class="fa fa-github"></i>
-              <p class="d-lg-none">GitHub</p>
-            </a>
-          </li> --}}
         </ul>
       </div>
     </div>
@@ -89,10 +50,12 @@
   <!-- End Navbar -->
   <div class="page-header" data-parallax="true" style="position: relative; overflow: hidden; height: 100vh;">
     <video autoplay muted loop playsinline
-           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
       <source src="assets/img/jti.mp4" type="video/mp4">
     </video>
-    <div style="background-color: rgba(0, 123, 255, 0.4); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    <div
+      style="background-color: rgba(0, 123, 255, 0.4); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+    </div>
     <div class="filter"></div>
     <div class="container">
       <div class="motto text-center">
@@ -104,70 +67,6 @@
     </div>
   </div>
   <div class="main">
-    {{-- <div class="section text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 ml-auto mr-auto">
-            <h2 class="title">Let's talk product</h2>
-            <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
-            <br>
-            <a href="#paper-kit" class="btn btn-danger btn-round">See Details</a>
-          </div>
-        </div>
-        <br/>
-        <br/> --}}
-        {{-- <div class="row">
-          <div class="col-md-3">
-            <div class="info">
-              <div class="icon icon-danger">
-                <i class="nc-icon nc-album-2"></i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Beautiful Gallery</h4>
-                <p class="description">Spend your time generating new ideas. You don't have to think of implementing.</p>
-                <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="info">
-              <div class="icon icon-danger">
-                <i class="nc-icon nc-bulb-63"></i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">New Ideas</h4>
-                <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient.</p>
-                <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="info">
-              <div class="icon icon-danger">
-                <i class="nc-icon nc-chart-bar-32"></i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Statistics</h4>
-                <p>Choose from a veriety of many colors resembling sugar paper pastels.</p>
-                <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="info">
-              <div class="icon icon-danger">
-                <i class="nc-icon nc-sun-fog-29"></i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Delightful design</h4>
-                <p>Find unique and handmade delightful designs related items directly from our sellers.</p>
-                <a href="javascript:;" class="btn btn-link btn-danger">See more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> --}}
     <div class="section section-dark text-center">
       <div class="container">
         <h2 class="title">Our Team</h2>
@@ -295,68 +194,7 @@
         </div>
       </div>
     </div>
-    {{-- <div class="section landing-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 ml-auto mr-auto">
-            <h2 class="text-center">Keep in touch?</h2>
-            <form class="contact-form">
-              <div class="row">
-                <div class="col-md-6">
-                  <label>Name</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="nc-icon nc-single-02"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Name">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label>Email</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="nc-icon nc-email-85"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Email">
-                  </div>
-                </div>
-              </div>
-              <label>Message</label>
-              <textarea class="form-control" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
-              <div class="row">
-                <div class="col-md-4 ml-auto mr-auto">
-                  <button class="btn btn-danger btn-lg btn-fill">Send Message</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer class="footer   footer-white ">
-    <div class="container">
-      <div class="row"> --}}
-        {{-- <nav class="footer-nav">
-          <ul>
-            <li>
-              <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
-            </li>
-            <li>
-              <a href="http://blog.creative-tim.com/" target="_blank">Blog</a>
-            </li>
-            <li>
-              <a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>
-            </li>
-          </ul>
-        </nav> --}}
-        
-      {{-- </div>
-    </div> --}}
+   
   </footer>
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>

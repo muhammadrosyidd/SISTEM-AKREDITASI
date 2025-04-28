@@ -1,0 +1,39 @@
+.custom-form-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #344767;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #3a416f;
+}
+
+.form-control {
+    border-radius: 10px;
+    border-color: #d2d6da;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #5e72e4;
+    box-shadow: 0 0 0 0.15rem rgba(94, 114, 228, 0.25);
+}
+
+.btn-primary {
+    background-color: #5e72e4;
+    border-color: #5e72e4;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #324cdd;
+    border-color: #324cdd;
+}
