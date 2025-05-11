@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_kriteria', function (Blueprint $table) {
-            $table->id('id_detail_kriteria');
+        Schema::create('evaluasi', function (Blueprint $table) {
+            $table->id('id_evaluasi');
             $table->unsignedBigInteger('id_kriteria')->index();
-            $table->string('penetapan',length:500);
-            $table->string('pelaksanaan',length:500);
-            $table->string('evaluasi',length:500);
-            $table->string('pengendalian',length:500);
-            $table->string('peningkatan',length:500);
-            $table->string('pendukung',length:500);
+            $table->text('deskripsi')->nullable();
+            $table->string('link')->nullable();
+            $table->string('pendukung')->nullable();
             $table->timestamps();
 
             $table->foreign('id_kriteria')->references('id_kriteria')->on('kriteria');
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_kriteria');
+        Schema::dropIfExists('evaluasi');
     }
 };

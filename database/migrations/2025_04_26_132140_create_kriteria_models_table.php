@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kriteria', function (Blueprint $table) {
             $table->id('id_kriteria');
-            $table->string('nama',length:50)->unique();
+            $table->string('nama_kriteria',length:50)->unique();
             $table->timestamps();
         });
     }

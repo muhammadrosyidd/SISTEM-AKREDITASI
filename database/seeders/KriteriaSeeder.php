@@ -14,47 +14,47 @@ class KriteriaSeeder extends Seeder
     {
         DB::table('kriteria')->insert([
             [
-                'nama' => 'VMTS',
+                'nama_kriteria' => 'VMTS',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Tata Kelola, Tata Pamong , dan Kerjasama',
+                'nama_kriteria' => 'Tata Kelola, Tata Pamong , dan Kerjasama',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Mahasiswa',
+                'nama_kriteria' => 'Mahasiswa',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'SDM',
+                'nama_kriteria' => 'SDM',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Keuangan, Sarana, dan Prasarana',
+                'nama_kriteria' => 'Keuangan, Sarana, dan Prasarana',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Pendidikan',
+                'nama_kriteria' => 'Pendidikan',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Penelitian',
+                'nama_kriteria' => 'Penelitian',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Pengabdian Kepada Masyarakat',
+                'nama_kriteria' => 'Pengabdian Kepada Masyarakat',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nama' => 'Luaran dan Capaian TRIDARMA',
+                'nama_kriteria' => 'Luaran dan Capaian TRIDARMA',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
