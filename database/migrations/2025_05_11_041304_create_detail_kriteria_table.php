@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_evaluasi')->index();
             $table->unsignedBigInteger('id_pengendalian')->index();
             $table->unsignedBigInteger('id_peningkatan')->index();
-            $table->unsignedBigInteger('id_komentar')->index();
+            $table->unsignedBigInteger('id_komentar')->index()->nullable();
             $table->enum('status',['submitted','save','revisi','acc1','acc2']);
             $table->timestamps();
 

@@ -11,7 +11,7 @@ class PenetapanModel extends Model
 {
     use HasFactory;
 
-    protected $table = "t_penetapan";
+    protected $table = "penetapan";
     protected $primaryKey = "id_penetapan";
     protected $fillable = ['id_kriteria', 'penetapan', 'pendukung'];
 

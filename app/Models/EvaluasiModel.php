@@ -11,7 +11,7 @@ class EvaluasiModel extends Model
 {
     use HasFactory;
 
-    protected $table = "t_evaluasi";
+    protected $table = "evaluasi";
     protected $primaryKey = "id_evaluasi";
     protected $fillable = ['id_kriteria', 'evaluasi', 'pendukung'];
 

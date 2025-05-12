@@ -10,7 +10,7 @@ class DetailKriteriaModel extends Model
 {
     use HasFactory;
 
-    protected $table = "t_detail_kriteria";
+    protected $table = "detail_kriteria";
     protected $primaryKey = "id_detail_kriteria";
     protected $fillable = [
         'id_penetapan',

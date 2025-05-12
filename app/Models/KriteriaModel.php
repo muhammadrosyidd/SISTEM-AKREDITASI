@@ -10,7 +10,7 @@ class KriteriaModel extends Model
 {
     use HasFactory;
 
-    protected $table = "m_kriteria";
+    protected $table = "kriteria";
     protected $primaryKey = "id_kriteria";
     protected $fillable = ['nama_kriteria'];
 

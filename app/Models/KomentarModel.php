@@ -10,7 +10,7 @@ class KomentarModel extends Model
 {
     use HasFactory;
 
-    protected $table = "t_komentar";
+    protected $table = "komentar";
     protected $primaryKey = "id_komentar";
     protected $fillable = ['komentar'];
 
