@@ -17,14 +17,25 @@
       <div class="shape"></div>
       <div class="shape"></div>
     </div>
-    <form onsubmit="return false;">
+    <form method="POST" action="{{ route('login') }}">
+      @csrf
       <button type="button" class="close-btn" onclick="closeModal()">×</button>
 
       <label for="username">Username</label>
-      <input style="margin-top: 0%" type="text" id="username" name="username" placeholder="Username">
+      <input style="margin-top: 0%" type="text" id="username" name="username" placeholder="Username" value="{{ old('username') }}" required>
 
       <label for="password">Password</label>
-      <input style="margin-top: 0%" type="password" id="password" name="password" placeholder="Password">
+      <input style="margin-top: 0%" type="password" id="password" name="password" placeholder="Password" required>
+
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
       <button type="submit">Log In</button>
     </form>
@@ -33,18 +44,18 @@
   <script>
     function openModal() {
       const modal = document.getElementById("login");
-      modal.style.display = "flex";  
+      modal.style.display = "flex";
       setTimeout(() => {
-        modal.classList.add("show");  
-      }, 10); 
+        modal.classList.add("show");
+      }, 10);
     }
 
     function closeModal() {
       const modal = document.getElementById("login");
-      modal.classList.remove("show");  
+      modal.classList.remove("show");
       setTimeout(() => {
-        modal.style.display = "none";  
-      }, 300); 
+        modal.style.display = "none";
+      }, 300);
     }
   </script>
 
