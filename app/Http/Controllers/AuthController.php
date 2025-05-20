@@ -4,60 +4,51 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
+use App\Models\RoleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\RateLimiter;
-
 
 class AuthController extends Controller
 {
-    // public function login(Request $request)
-    // {
-    //     $credentials = $request->only('username', 'password');
-
-    //     if (Auth::attempt($credentials)) {
-    //         // Authentication passed...
-    //         return redirect()->intended('dashboard');
-    //     }
-
-    //     return back()->withErrors([
-    //         'username' => 'The provided credentials do not match our records.',
-    //     ]);
-    // }
-
-    public function __construct()
+    public function login()
     {
-        $this->middleware('guest')->only('login');
+        if (Auth::check()) {
+            return redirect()->intended('/dashboard');
+        }
+
+        return view('/');
     }
 
-    public function login(Request $request)
+    public function postlogin(Request $request)
     {
+        // Validate input
         $request->validate([
-            'username' => 'required|string|max:255',
+            'username' => 'required|string|max:100',
             'password' => 'required|string',
         ]);
 
-        $username = $request->username;
-        $password = $request->password;
+        $credentials = $request->only('username', 'password');
 
-        $key = 'login:'.$request->ip();
-        if (RateLimiter::tooManyAttempts($key, 5)) {
-            return back()->withErrors(['username' => 'Too many login attempts. Try again later.']);
-        }
+        // Log attempt for debugging
+        Log::info('Login attempt', ['username' => $credentials['username']]);
 
-        Log::info('Login attempt', ['username' => $username]);
-
-        if (Auth::attempt(['username' => $username, 'password' => $password])) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            Log::info('User logged in', ['id_user' => Auth::user()->id_user, 'username' => $username]);
-            return redirect()->intended('dashboard');
+            Log::info('Login successful', ['username' => Auth::user()->username, 'id_user' => Auth::user()->id_user]);
+            return redirect()->intended('/dashboard');
         }
 
-        RateLimiter::hit($key);
-        Log::warning('Failed login attempt', ['username' => $username]);
-
-        return back()->withErrors([
-            'username' => 'Invalid credentials.',
+        Log::warning('Login failed', ['username' => $credentials['username']]);
+        return redirect('/')->withErrors([
+            'username' => 'Username or password is incorrect.'
         ])->withInput();
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('');
     }
 }

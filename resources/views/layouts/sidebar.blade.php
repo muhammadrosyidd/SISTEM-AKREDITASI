@@ -28,6 +28,21 @@
   .icon {
       margin-right: 10px;
   }
+  .logout-btn {
+    color: white;
+    background: none;
+    border: none;
+    padding: 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    font-family: Arial, sans-serif;
+  }
+  .logout-btn:hover {
+    background-color: #1e40af;
+  }
 </style>
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start" id="sidenav-main">
     <div class="sidenav-header">
@@ -91,7 +106,7 @@
                   <a class="nav-link" href="{{route('kriteria.1')}}">Kriteria 1</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="pages/kriteria2.html">Kriteria 2</a>
+                  <a class="nav-link" href="{{route('kriteria.2')}}">Kriteria 2</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="pages/kriteria2.html">Kriteria 3</a>
@@ -194,6 +209,15 @@
         </li> --}}
       </ul>
     </div>
+    <li class="nav-item mt-3">
+  <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="logout-btn">
+      <i class="bi bi-box-arrow-right icon"></i>
+      <span class="nav-link-text ms-1">Logout</span>
+    </button>
+  </form>
+</li>
   </aside>
 
   <script>

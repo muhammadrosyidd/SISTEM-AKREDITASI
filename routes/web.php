@@ -23,9 +23,11 @@ Route::get('/', function () {
 
 
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'postlogin'])->name('login.post');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/kriteria1', [KriteriaController::class, 'kriteria1'])->name('kriteria.1')->middleware('authorize:A1');
+Route::get('/kriteria2', [KriteriaController::class, 'kriteria2'])->name('kriteria.2')->middleware('authorize:A2');
+Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index')->middleware('authorize:KJR');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index');
-Route::get('/kriteria1', [KriteriaController::class, 'index'])->name('kriteria.1');
