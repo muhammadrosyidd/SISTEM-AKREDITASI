@@ -194,8 +194,8 @@
                                 @endforeach
 
                                 <div class="mt-4 text-end">
-                                    <button type="button" onclick="setStatus('save')" class="btn btn-secondary px-4">Save</button>
-                                    <button type="button" onclick="setStatus('submitted')" class="btn btn-primary px-4">Submit</button>
+                                    <button type="submit" name="status" value="save" class="btn btn-secondary px-4 me-2">Save</button>
+    <button type="submit" name="status" value="submitted" class="btn btn-primary px-4">Submit</button>
                                     <a href="{{ route('kriteria.index') }}" class="btn btn-danger px-4 me-2">Cancel</a>
                                 </div>
                             </form>
@@ -226,7 +226,8 @@
             tinymce.init({
                 selector: 'textarea#penetapan, textarea#pelaksanaan, textarea#evaluasi, textarea#pengendalian, textarea#peningkatan',
                 plugins: 'table lists link image',
-                toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright | indent outdent | link | bullist numlist | table | image'
+                toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright | indent outdent | link | bullist numlist | table | image',
+                branding: false
             });
         </script>
 

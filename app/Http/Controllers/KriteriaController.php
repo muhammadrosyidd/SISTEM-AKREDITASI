@@ -3,32 +3,25 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Support\Facades\Storage;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\EvaluasiModel;
 use App\Models\KriteriaModel;
 use App\Models\PenetapanModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PelaksanaanModel;
 use App\Models\PeningkatanModel;
 use App\Models\PengendalianModel;
 use App\Models\DetailKriteriaModel;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 
 class KriteriaController extends Controller
 {
     // Menampilkan daftar kriteria yang belum divalidasi
-    public function kriteria1()
+    public function index()
     {
-<<<<<<< HEAD
-        return view('kriteria1.index');
-    }
-
-    public function kriteria2()
-    {
-        return view('kriteria2.index');
-=======
         $breadcrumb = (object) [
             'title' => 'Kriteria Satu',
             'list' => ['Kriteria', 'Kriteria1']
@@ -47,7 +40,6 @@ class KriteriaController extends Controller
             'activeMenu' => $activeMenu,
             'activeSubmenu' => $activeSubmenu
         ]);
->>>>>>> kriteria
     }
 
     public function create()
@@ -73,6 +65,14 @@ class KriteriaController extends Controller
 
     public function store(Request $request)
     {
+        Log::info('📝 Form Kriteria1 dikirim');
+    Log::info('🔑 Status dikirim: ' . $request->input('status'));
+    Log::info('👤 User yang login: ' . optional($request->user())->name);
+    Log::info('📎 File yang dikirim: ', $request->allFiles());
+    Log::info('📨 Semua input: ', $request->all());
+
+    $status = $request->input('status');
+    
         $validated = $request->validate([
             'penetapan' => 'required|string|max:255',
             'pendukung_penetapan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
@@ -84,7 +84,7 @@ class KriteriaController extends Controller
             'pendukung_pengendalian' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
             'peningkatan' => 'required|string|max:255',
             'pendukung_peningkatan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            'status' => 'required|string|in:submitted,save',
+            
         ]);
 
         $penetapan = new PenetapanModel();
@@ -149,7 +149,7 @@ class KriteriaController extends Controller
         $detail_kriteria->id_evaluasi = $evaluasi->id_evaluasi;
         $detail_kriteria->id_pengendalian = $pengendalian->id_pengendalian;
         $detail_kriteria->id_peningkatan = $peningkatan->id_peningkatan;
-        $detail_kriteria->status = $validated['status'];
+        $detail_kriteria->status = $status;
         $detail_kriteria->save();
 
         return redirect()->route('kriteria.index')->with('success', 'Data berhasil disimpan');
@@ -191,6 +191,7 @@ class KriteriaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $status = $request->input('status');
         $validated = $request->validate([
             'penetapan' => 'required|string|max:255',
             'pendukung_penetapan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
@@ -202,7 +203,7 @@ class KriteriaController extends Controller
             'pendukung_pengendalian' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
             'peningkatan' => 'required|string|max:255',
             'pendukung_peningkatan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            'status' => 'required|string|in:submitted,save',
+            
         ]);
 
         $detail = DetailKriteriaModel::findOrFail($id);
@@ -257,7 +258,7 @@ class KriteriaController extends Controller
         }
         $peningkatan->save();
 
-        $detail->status = $validated['status'];
+        $detail->status = $status;
         $detail->save();
 
         return redirect()->route('kriteria.index')->with('success', 'Data berhasil diupdate');
