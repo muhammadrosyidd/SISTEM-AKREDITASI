@@ -1,12 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-use App\Http\Controllers\ValidasiController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-=======
->>>>>>> kriteria
 use App\Http\Controllers\KriteriaController;
 
 use App\Http\Controllers\ValidasiController;
@@ -38,8 +32,6 @@ Route::get('/kriteria2', [KriteriaController::class, 'kriteria2'])->name('kriter
 Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index')->middleware('authorize:KJR');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-<<<<<<< HEAD
-=======
 
 Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index');
 Route::get('/kriteria1/input', [KriteriaController::class, 'create'])->name('kriteria.1.input');
@@ -55,4 +47,3 @@ Route::delete('/kriteria1/{id}', [KriteriaController::class, 'destroy'])->name('
 
 
 
->>>>>>> kriteria
