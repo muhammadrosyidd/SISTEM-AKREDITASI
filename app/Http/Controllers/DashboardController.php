@@ -12,4 +12,5 @@ class DashboardController extends Controller
     {
         return view ('layouts.dashboard');
     }
+
 }

@@ -69,15 +69,14 @@
             <div class="swiper-wrapper">
               <div class="swiper-slide"> 
                 <div>
-                  <a href="{{route('kriteria.1')}}">
+                  <a href="{{route('kriteria.index')}}">
                   <div class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                     <div class="full-background bg-cover" style="background-image: url('assets/img/img-2.jpg')"></div>
                     <div class="card-body text-start px-3 py-0 w-100">
                       <div class="row mt-12">
                         <div class="col-sm-3 mt-auto">
-                          <h4 class="text-dark font-weight-bolder">#1</h4>
                           <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                          <h5 class="text-dark font-weight-bolder">Statuta POLINEMA</h5>
+                          <h5 class="text-dark font-weight-bolder">VMTS</h5>
                         </div>
                         <div class="col-sm-3 ms-auto mt-auto">
                           <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Kriteria</p>
@@ -95,13 +94,12 @@
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
-                        <h4 class="text-dark font-weight-bolder">#2</h4>
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                        <h5 class="text-dark font-weight-bolder">Cyber</h5>
+                        <h5 class="text-dark font-weight-bolder">Tata Kelola</h5>
                       </div>
                       <div class="col-sm-3 ms-auto mt-auto">
-                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
-                        <h5 class="text-dark font-weight-bolder">Security</h5>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Kategori</p>
+                        <h5 class="text-dark font-weight-bolder">2</h5>
                       </div>
                     </div>
                   </div>
@@ -113,13 +111,12 @@
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
-                        <h4 class="text-dark font-weight-bolder">#3</h4>
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                        <h5 class="text-dark font-weight-bolder">Alpha</h5>
+                        <h5 class="text-dark font-weight-bolder">Mahasiswa</h5>
                       </div>
                       <div class="col-sm-3 ms-auto mt-auto">
-                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
-                        <h5 class="text-dark font-weight-bolder">Blockchain</h5>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Kategori</p>
+                        <h5 class="text-dark font-weight-bolder">3</h5>
                       </div>
                     </div>
                   </div>
@@ -131,13 +128,12 @@
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
-                        <h4 class="text-dark font-weight-bolder">#4</h4>
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                        <h5 class="text-dark font-weight-bolder">Beta</h5>
+                        <h5 class="text-dark font-weight-bolder">Keuangan, Sarana, dan Prasarana</h5>
                       </div>
                       <div class="col-sm-3 ms-auto mt-auto">
-                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
-                        <h5 class="text-dark font-weight-bolder">Web3</h5>
+                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Kategori</p>
+                        <h5 class="text-dark font-weight-bolder">4</h5>
                       </div>
                     </div>
                   </div>
@@ -149,9 +145,8 @@
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
-                        <h4 class="text-dark font-weight-bolder">#5</h4>
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                        <h5 class="text-dark font-weight-bolder">Gama</h5>
+                        <h5 class="text-dark font-weight-bolder">Pendidikan</h5>
                       </div>
                       <div class="col-sm-3 ms-auto mt-auto">
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
@@ -167,9 +162,8 @@
                   <div class="card-body text-start px-3 py-0 w-100">
                     <div class="row mt-12">
                       <div class="col-sm-3 mt-auto">
-                        <h4 class="text-dark font-weight-bolder">#6</h4>
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                        <h5 class="text-dark font-weight-bolder">Rompro</h5>
+                        <h5 class="text-dark font-weight-bolder">Penelitian</h5>
                       </div>
                       <div class="col-sm-3 ms-auto mt-auto">
                         <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category</p>
