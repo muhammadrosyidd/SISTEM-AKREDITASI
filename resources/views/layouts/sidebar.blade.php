@@ -88,7 +88,7 @@
             <div class="collapse ms-4" id="submenuKriteria">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('kriteria.1')}}">Kriteria 1</a>
+                  <a class="nav-link" href="{{route('kriteria.index')}}">Kriteria 1</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="pages/kriteria2.html">Kriteria 2</a>
