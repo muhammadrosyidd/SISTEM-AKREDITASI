@@ -14,10 +14,16 @@ class UserModel extends Authenticatable
 
     protected $table = 'user';
     protected $primaryKey = 'id_user';
-    protected $fillable = ['id_role', 'username', 'name', 'password', 'created_at', 'updated_at'];
+    protected $fillable = ['id_role', 'username', 'nama_user', 'password', 'created_at', 'updated_at'];
 
     protected $hidden = ['password'];
     protected $casts = ['password' => 'hashed'];
+
+    // Override the authentication identifier to use 'username'
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
 
     public function role(): BelongsTo
     {
@@ -32,5 +38,10 @@ class UserModel extends Authenticatable
     public function hasRole($role): bool
     {
         return $this->role->role_kode == $role;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role->role_kode;
     }
 }
