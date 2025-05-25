@@ -39,4 +39,5 @@ Route::middleware(['auth'])->group(function () {
 
     // Validasi (HANYA UNTUK KJR)
     Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index')->middleware('authorize:KJR');
+    Route::post('/validasi/list', [ValidasiController::class, 'list'])->name('validasi.list')->middleware('authorize:KJR');
 });
