@@ -20,16 +20,19 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pengendalian')->index();
             $table->unsignedBigInteger('id_peningkatan')->index();
             $table->unsignedBigInteger('id_komentar')->index()->nullable();
-            $table->enum('status',['submitted','save','revisi','acc1','acc2']);
+            $table->unsignedBigInteger('id_pengisian')->index(); 
+            $table->enum('status', ['submitted', 'save', 'revisi', 'acc1', 'acc2']);
             $table->timestamps();
 
-            $table->foreign('id_kriteria')->references('id_kriteria')->on('kriteria');
-            $table->foreign('id_penetapan')->references('id_penetapan')->on('penetapan');
-            $table->foreign('id_pelaksanaan')->references('id_pelaksanaan')->on('pelaksanaan');
-            $table->foreign('id_evaluasi')->references('id_evaluasi')->on('evaluasi');
-            $table->foreign('id_pengendalian')->references('id_pengendalian')->on('pengendalian');
-            $table->foreign('id_peningkatan')->references('id_peningkatan')->on('peningkatan');
-            $table->foreign('id_komentar')->references('id_komentar')->on('komentar');
+            // Defining foreign keys
+            $table->foreign('id_kriteria')->references('id_kriteria')->on('kriteria')->onDelete('cascade');
+            $table->foreign('id_penetapan')->references('id_penetapan')->on('penetapan')->onDelete('cascade');
+            $table->foreign('id_pelaksanaan')->references('id_pelaksanaan')->on('pelaksanaan')->onDelete('cascade');
+            $table->foreign('id_evaluasi')->references('id_evaluasi')->on('evaluasi')->onDelete('cascade');
+            $table->foreign('id_pengendalian')->references('id_pengendalian')->on('pengendalian')->onDelete('cascade');
+            $table->foreign('id_peningkatan')->references('id_peningkatan')->on('peningkatan')->onDelete('cascade');
+            $table->foreign('id_komentar')->references('id_komentar')->on('komentar')->onDelete('set null');
+            $table->foreign('id_pengisian')->references('id_pengisian')->on('pengisian')->onDelete('cascade'); 
         });
     }
 

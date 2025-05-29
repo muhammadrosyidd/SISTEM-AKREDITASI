@@ -20,7 +20,8 @@ class DetailKriteriaModel extends Model
         'id_peningkatan',
         'id_kriteria',
         'id_komentar',
-        'status'
+        'status',
+        'id_pengisian' 
     ];
 
     public function penetapan(): BelongsTo
@@ -56,5 +57,11 @@ class DetailKriteriaModel extends Model
     public function komentar(): BelongsTo
     {
         return $this->belongsTo(KomentarModel::class, 'id_komentar', 'id_komentar');
+    }
+
+    // Relasi ke PengisianModel
+    public function pengisian(): BelongsTo
+    {
+        return $this->belongsTo(PengisianModel::class, 'id_pengisian', 'id_pengisian');
     }
 }
