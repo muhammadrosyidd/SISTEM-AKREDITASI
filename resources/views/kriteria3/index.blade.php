@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
 
   <link rel="stylesheet" href="{{ asset('assets/css/kriteria.css') }}">
-  <title>Kriteria 1 - Corporate UI</title>
+  <title>Kriteria 3 - Corporate UI</title>
 
   <!-- Fonts and icons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700" rel="stylesheet" />
@@ -31,7 +31,7 @@
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="#">Dashboard</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Kriteria</li>
           </ol>
-          <h6 class="font-weight-bold mb-0">Kriteria 1</h6>
+          <h6 class="font-weight-bold mb-0">Kriteria 3</h6>
         </nav>
       </div>
     </nav>
@@ -42,9 +42,9 @@
         <div class="col-12">
           <div class="card border shadow-xs mb-4">
             <div class="custom-form-section p-4">
-              <h4 class="form-title text-right mb-4">Kriteria 1 - Statuta POLINEMA</h4>
+              <h4 class="form-title text-right mb-4">Kriteria 3 - Statuta POLINEMA</h4>
 
-              <form method="POST" action="{{ url('/kriteria1') }}" enctype="multipart/form-data">
+              <form method="POST" action="{{ url('/kriteria3') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                   <div class="col-md-6 mb-3">

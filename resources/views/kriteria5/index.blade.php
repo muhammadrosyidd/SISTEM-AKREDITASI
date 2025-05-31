@@ -40,7 +40,7 @@
                         <li class="breadcrumb-item text-sm"><a
                                 class="opacity-5 text-dark" href="javascript:;">Dashboard</a></li>
                         <li class="breadcrumb-item text-sm text-dark active"
-                            aria-current="page">Kriteria 2</li>
+                            aria-current="page">Kriteria 5</li>
                     </ol>
                 </nav>
             </div>
@@ -54,7 +54,7 @@
                         <div
                             class="card-header pb-0 d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Daftar Kriteria</h6>
-                            <a href="{{ route('kriteria.2.input') }}" class="btn btn-sm btn-success">
+                            <a href="{{ route('kriteria.5.input') }}" class="btn btn-sm btn-success">
                                 <i class="fas fa-plus me-1"></i> Input Kriteria
                             </a>
                         </div>

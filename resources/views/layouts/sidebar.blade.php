@@ -106,16 +106,16 @@
                   <a class="nav-link" href="{{route('kriteria.index')}}">Kriteria 1</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('kriteria.2')}}">Kriteria 2</a>
+                  <a class="nav-link" href="{{route('kriteria2.index')}}">Kriteria 2</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/kriteria2.html">Kriteria 3</a>
+                    <a class="nav-link" href="{{route('kriteria3.index')}}">Kriteria 3</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/kriteria2.html">Kriteria 4</a>
+                    <a class="nav-link" href="{{route('kriteria4.index')}}">Kriteria 4</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/kriteria2.html">Kriteria 5</a>
+                    <a class="nav-link" href="{{route('kriteria5.index')}}">Kriteria 5</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="pages/kriteria2.html">Kriteria 6</a>

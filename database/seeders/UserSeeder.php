@@ -34,7 +34,8 @@ class UserSeeder extends Seeder
                 'id_role' => 3,
                 'nama_user' => 'Muhammad Arif',
                 'username' => 'arif',
-                'password' => Hash::make('12345678'),
+                'password' => Hash::make('12345678
+                .'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
