@@ -45,13 +45,14 @@ class KriteriaController extends Controller
 
     public function create()
     {
-        return view('kriteria1.input');
+        return view('kriteria.input');
     }
 
     public function list(Request $request)
     {
         $details = DetailKriteriaModel::with('kriteria:id_kriteria,nama_kriteria')
-            ->select('id_detail_kriteria', 'id_kriteria', 'status');
+            ->select('id_detail_kriteria', 'id_kriteria', 'status')
+            ->whereIn('id_kriteria',[1]);
 
         //Filter data berdasarkan id_detail_kriteria
         if ($request->id_detail_kriteria) {
@@ -68,7 +69,7 @@ class KriteriaController extends Controller
 {
 
     $status = $request->input('status');
-    $id_kriteria = 2; // karena ini store untuk Kriteria 1
+    $id_kriteria = 1; // karena ini store untuk Kriteria 1
 
     $validated = $request->validate([
         'penetapan' => 'required|string|max:255',

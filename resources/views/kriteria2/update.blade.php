@@ -113,7 +113,7 @@
                                 ];
                             @endphp
 
-                            <form method="POST" action="{{ route('kriteria1.update', $detail->id_detail_kriteria) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('kriteria2.update', $detail->id_detail_kriteria) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="status" id="status" value="saved">

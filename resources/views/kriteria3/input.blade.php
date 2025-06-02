@@ -113,7 +113,7 @@ html >
                     <div class="card border shadow-xs mb-4">
                         <div class="custom-form-section p-4">
                             <h4 class="form-title text-right mb-4">Kriteria 3 - VMTS</h4>
-                            <form method="POST" action="{{ route('kriteria1.store') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('kriteria3.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <!-- Hidden status field -->
                                 <input type="hidden" name="status" id="status" value="saved">

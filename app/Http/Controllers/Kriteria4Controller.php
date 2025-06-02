@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\EvaluasiModel;
 use App\Models\KriteriaModel;
 use App\Models\PenetapanModel;
+use App\Models\PengisianModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PelaksanaanModel;
 use App\Models\PeningkatanModel;
@@ -50,7 +51,8 @@ class Kriteria4Controller extends Controller
     public function list(Request $request)
     {
         $details = DetailKriteriaModel::with('kriteria:id_kriteria,nama_kriteria')
-            ->select('id_detail_kriteria', 'id_kriteria', 'status');
+            ->select('id_detail_kriteria', 'id_kriteria', 'status')
+            ->whereIn('id_kriteria',[4]);
 
         //Filter data berdasarkan id_detail_kriteria
         if ($request->id_detail_kriteria) {
@@ -64,96 +66,91 @@ class Kriteria4Controller extends Controller
     }
 
     public function store(Request $request)
-    {
-        Log::info('📝 Form Kriteria1 dikirim');
-    Log::info('🔑 Status dikirim: ' . $request->input('status'));
-    Log::info('👤 User yang login: ' . optional($request->user())->name);
-    Log::info('📎 File yang dikirim: ', $request->allFiles());
-    Log::info('📨 Semua input: ', $request->all());
+{
 
     $status = $request->input('status');
-    
-        $validated = $request->validate([
-            'penetapan' => 'required|string|max:255',
-            'pendukung_penetapan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            'pelaksanaan' => 'required|string|max:255',
-            'pendukung_pelaksanaan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            'evaluasi' => 'required|string|max:255',
-            'pendukung_evaluasi' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            'pengendalian' => 'required|string|max:255',
-            'pendukung_pengendalian' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            'peningkatan' => 'required|string|max:255',
-            'pendukung_peningkatan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
-            
-        ]);
+    $id_kriteria = 4; // karena ini store untuk Kriteria 1
 
-        $penetapan = new PenetapanModel();
-        $penetapan->id_kriteria = 4;
-        $penetapan->deskripsi = $validated['penetapan'];
+    $validated = $request->validate([
+        'penetapan' => 'required|string|max:255',
+        'pendukung_penetapan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
+        'pelaksanaan' => 'required|string|max:255',
+        'pendukung_pelaksanaan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
+        'evaluasi' => 'required|string|max:255',
+        'pendukung_evaluasi' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
+        'pengendalian' => 'required|string|max:255',
+        'pendukung_pengendalian' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
+        'peningkatan' => 'required|string|max:255',
+        'pendukung_peningkatan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10000',
+    ]);
 
-        if ($request->hasFile('pendukung_penetapan')) {
-            $path = $request->file('pendukung_penetapan')->store('penetapan', 'public');
-            $penetapan->pendukung = $path;
+    $batches = PengisianModel::withCount(['detailKriteria'])
+        ->having('detail_kriteria_count', '<', 9)
+        ->orderBy('id_pengisian', 'asc')
+        ->get();
+
+    $availableBatch = null;
+
+    foreach ($batches as $batch) {
+        $exists = DetailKriteriaModel::where('id_pengisian', $batch->id_pengisian)
+            ->where('id_kriteria', $id_kriteria)
+            ->exists();
+
+
+        if (!$exists) {
+            $availableBatch = $batch;
+            break;
         }
-
-        $penetapan->save();
-
-        $pelaksanaan = new PelaksanaanModel();
-        $pelaksanaan->id_kriteria = 4;
-        $pelaksanaan->deskripsi = $validated['pelaksanaan'];
-
-        if ($request->hasFile('pendukung_pelaksanaan')) {
-            $path = $request->file('pendukung_pelaksanaan')->store('pelaksanaan', 'public');
-            $pelaksanaan->pendukung = $path;
-        }
-
-        $pelaksanaan->save();
-
-        $evaluasi = new EvaluasiModel();
-        $evaluasi->id_kriteria = 4;
-        $evaluasi->deskripsi = $validated['evaluasi'];
-
-        if ($request->hasFile('pendukung_evaluasi')) {
-            $path = $request->file('pendukung_evaluasi')->store('evaluasi', 'public');
-            $evaluasi->pendukung = $path;
-        }
-
-        $evaluasi->save();
-
-        $pengendalian = new PengendalianModel();
-        $pengendalian->id_kriteria = 4;
-        $pengendalian->deskripsi = $validated['pengendalian'];
-
-        if ($request->hasFile('pendukung_pengendalian')) {
-            $path = $request->file('pendukung_pengendalian')->store('pengendalian', 'public');
-            $pengendalian->pendukung = $path;
-        }
-
-        $pengendalian->save();
-
-        $peningkatan = new PeningkatanModel();
-        $peningkatan->id_kriteria = 4;
-        $peningkatan->deskripsi = $validated['peningkatan'];
-
-        if ($request->hasFile('pendukung_peningkatan')) {
-            $path = $request->file('pendukung_peningkatan')->store('peningkatan', 'public');
-            $peningkatan->pendukung = $path;
-        }
-
-        $peningkatan->save();
-
-        $detail_kriteria = new DetailKriteriaModel();
-        $detail_kriteria->id_kriteria = 4;
-        $detail_kriteria->id_penetapan = $penetapan->id_penetapan;
-        $detail_kriteria->id_pelaksanaan = $pelaksanaan->id_pelaksanaan;
-        $detail_kriteria->id_evaluasi = $evaluasi->id_evaluasi;
-        $detail_kriteria->id_pengendalian = $pengendalian->id_pengendalian;
-        $detail_kriteria->id_peningkatan = $peningkatan->id_peningkatan;
-        $detail_kriteria->status = $status;
-        $detail_kriteria->save();
-
-        return redirect()->route('kriteria4.index')->with('success', 'Data berhasil disimpan');
     }
+
+    if (!$availableBatch) {
+    $lastId = PengisianModel::max('id_pengisian') ?? 0;
+$nomorBatch = $lastId + 1;
+
+    $availableBatch = PengisianModel::create([
+        'nama_pengisian' => 'Pengisian ke-' . $nomorBatch,
+    ]);
+}
+
+
+    $batch = $availableBatch;
+
+   
+    $saveModel = function ($class, $key, $fileKey, $folder) use ($validated, $request, $id_kriteria) {
+        $model = new $class();
+        $model->id_kriteria = $id_kriteria;
+        $model->deskripsi = $validated[$key];
+
+        if ($request->hasFile($fileKey)) {
+            $path = $request->file($fileKey)->store($folder, 'public');
+            $model->pendukung = $path;
+        }
+
+        $model->save();
+        return $model;
+    };
+
+    $penetapan     = $saveModel(PenetapanModel::class, 'penetapan', 'pendukung_penetapan', 'penetapan');
+    $pelaksanaan   = $saveModel(PelaksanaanModel::class, 'pelaksanaan', 'pendukung_pelaksanaan', 'pelaksanaan');
+    $evaluasi      = $saveModel(EvaluasiModel::class, 'evaluasi', 'pendukung_evaluasi', 'evaluasi');
+    $pengendalian  = $saveModel(PengendalianModel::class, 'pengendalian', 'pendukung_pengendalian', 'pengendalian');
+    $peningkatan   = $saveModel(PeningkatanModel::class, 'peningkatan', 'pendukung_peningkatan', 'peningkatan');
+
+    // 🔗 Simpan DetailKriteria
+    $detail = new DetailKriteriaModel();
+    $detail->id_kriteria      = $id_kriteria;
+    $detail->id_penetapan     = $penetapan->id ?? $penetapan->id_penetapan;
+    $detail->id_pelaksanaan   = $pelaksanaan->id ?? $pelaksanaan->id_pelaksanaan;
+    $detail->id_evaluasi      = $evaluasi->id ?? $evaluasi->id_evaluasi;
+    $detail->id_pengendalian  = $pengendalian->id ?? $pengendalian->id_pengendalian;
+    $detail->id_peningkatan   = $peningkatan->id ?? $peningkatan->id_peningkatan;
+    $detail->id_pengisian     = $batch->id_pengisian;
+    $detail->status           = $status;
+    $detail->save();
+
+    return redirect()->route('kriteria4.index')->with('success', 'Data berhasil disimpan');
+}
+
     public function preview($id)
     {
         $detail = DetailKriteriaModel::with([

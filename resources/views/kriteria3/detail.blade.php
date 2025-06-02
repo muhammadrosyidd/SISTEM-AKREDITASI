@@ -12,7 +12,7 @@
                 <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                 Data detail tidak ditemukan.
             </div>
-            <a href="{{ url('kriteria1') }}" class="btn btn-warning">Kembali</a>
+            <a href="{{ url('kriteria3') }}" class="btn btn-warning">Kembali</a>
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
                     </table>
                 </div>
 
-                <iframe src="{{ url('kriteria1/' . $detail->id_detail_kriteria . '/preview-pdf') }}" width="100%"
+                <iframe src="{{ url('kriteria3/' . $detail->id_detail_kriteria . '/preview-pdf') }}" width="100%"
                     height="600px" style="border:1px solid #ccc; border-radius:4px;"></iframe>
 
             </div>

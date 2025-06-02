@@ -161,7 +161,7 @@
 
     <script>
         var dataDetail;
-        const base_url = "{{ url('kriteria1') }}";
+        const base_url = "{{ url('kriteria4') }}";
         let deleteId = null;
 
         // Fungsi untuk memuat detail dan menampilkan modal
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 serverSide: true,
                 processing: true,
                 ajax: {
-                    url: "{{ route('kriteria.1.list') }}",
+                    url: "{{ route('kriteria.4.list') }}",
                     type: "POST",
                     data: function (d) {
                         d._token = "{{ csrf_token() }}";
@@ -362,22 +362,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         orderable: false,
                         searchable: false,
                         width: "30%",
-                        render: function (data, type, row, meta) {
-                            const id = row.id_detail_kriteria;
-                            return `
-                                <div class="btn-action-group d-flex justify-content-center">
-                                    <button class="btn btn-info btn-sm" onclick="showDetail(${id})" title="Detail">
-                                        <i class="fas fa-eye fa-xs"></i> Detail
-                                    </button>
-                                    <a href="${base_url}/${id}/edit" class="btn btn-warning btn-sm" title="Edit">
-                                        <i class="fas fa-edit fa-xs"></i> Edit
-                                    </a>
-                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete(${id})" title="Hapus">
-                                        <i class="fas fa-trash fa-xs "></i> Hapus
-                                    </button>
-                                </div>
-                            `;
-                        }
+                         render: function (data, type, row, meta) {
+    const id = row.id_detail_kriteria;
+    const isEditable = (row.status === 'save' || row.status === 'revisi');
+
+    return `
+        <div class="btn-action-group d-flex justify-content-center">
+            <button class="btn btn-info btn-sm" onclick="showDetail(${id})" title="Detail">
+                <i class="fas fa-eye fa-xs"></i> Detail
+            </button>
+            <a href="${base_url}/${id}/edit" 
+               class="btn btn-warning btn-sm ${isEditable ? '' : 'disabled'}" 
+               title="Edit"
+               ${isEditable ? '' : 'tabindex="-1" aria-disabled="true" onclick="return false;"'}>
+               <i class="fas fa-edit fa-xs"></i> Edit
+            </a>
+            <button class="btn btn-danger btn-sm" onclick="confirmDelete(${id})" title="Hapus">
+                <i class="fas fa-trash fa-xs "></i> Hapus
+            </button>
+        </div>
+    `;
+}
                     }
                 ],
                 language: {
