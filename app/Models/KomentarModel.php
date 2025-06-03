@@ -12,7 +12,7 @@ class KomentarModel extends Model
 
     protected $table = "komentar";
     protected $primaryKey = "id_komentar";
-    protected $fillable = ['komentar'];
+    protected $fillable = ['komen',"id_kriteria"];
 
     public function details(): HasMany
     {

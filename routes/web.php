@@ -1,14 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\ValidasiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Kriteria2Controller;
 use App\Http\Controllers\Kriteria3Controller;
 use App\Http\Controllers\Kriteria4Controller;
 use App\Http\Controllers\Kriteria5Controller;
-use App\Http\Controllers\ValidasiController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Kriteria6Controller;
+use App\Http\Controllers\Kriteria7Controller;
+use App\Http\Controllers\Kriteria8Controller;
+use App\Http\Controllers\Kriteria9Controller;
+use App\Http\Controllers\ValidasiDirController;
 
 Route::get('/', function () {
     return view('index');
@@ -102,6 +107,58 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/kriteria5/{id}', [Kriteria5Controller::class, 'destroy'])->name('kriteria5.destroy');
     });
 
-    // Validasi (HANYA UNTUK KJR)
-    Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index')->middleware('authorize:KJR');
+     Route::middleware(['authorize:A6'])->group(function () {
+        Route::get('/kriteria6/input', [Kriteria6Controller::class, 'create'])->name('kriteria.6.input');
+        Route::get('/kriteria6', [Kriteria6Controller::class, 'index'])->name('kriteria6.index');
+        Route::post('/kriteria6', [Kriteria6Controller::class, 'store'])->name('kriteria6.store');
+        Route::post('/kriteria6/list', [Kriteria6Controller::class, 'list'])->name('kriteria.6.list');
+        Route::get('/kriteria6/{id}/show', [Kriteria6Controller::class, 'preview'])->name('kriteria6.detail');
+        Route::get('/kriteria6/{id}/preview-pdf', [Kriteria6Controller::class, 'previewpdf'])->name('kriteria6.preview-pdf');
+        Route::get('/kriteria6/{id}/edit', [Kriteria6Controller::class, 'edit'])->name('kriteria6.edit');
+        Route::put('/kriteria6/{id}', [Kriteria6Controller::class, 'update'])->name('kriteria6.update');
+        Route::delete('/kriteria6/{id}', [Kriteria6Controller::class, 'destroy'])->name('kriteria6.destroy');
+    });
+
+    Route::middleware(['authorize:A7'])->group(function () {
+        Route::get('/kriteria7/input', [Kriteria7Controller::class, 'create'])->name('kriteria7.input');
+        Route::get('/kriteria7', [Kriteria7Controller::class, 'index'])->name('kriteria7.index');
+        Route::post('/kriteria7', [Kriteria7Controller::class, 'store'])->name('kriteria7.store');
+        Route::post('/kriteria7/list', [Kriteria7Controller::class, 'list'])->name('kriteria.7.list');
+        Route::get('/kriteria7/{id}/show', [Kriteria7Controller::class, 'preview'])->name('kriteria7.detail');
+        Route::get('/kriteria7/{id}/preview-pdf', [Kriteria7Controller::class, 'previewpdf'])->name('kriteria7.preview-pdf');
+        Route::get('/kriteria7/{id}/edit', [Kriteria7Controller::class, 'edit'])->name('kriteria7.edit');
+        Route::put('/kriteria7/{id}', [Kriteria7Controller::class, 'update'])->name('kriteria7.update');
+        Route::delete('/kriteria7/{id}', [Kriteria7Controller::class, 'destroy'])->name('kriteria7.destroy');
+    });
+
+    Route::middleware(['authorize:A8'])->group(function () {
+        Route::get('/kriteria8/input', [Kriteria8Controller::class, 'create'])->name('kriteria8.input');
+        Route::get('/kriteria8', [Kriteria8Controller::class, 'index'])->name('kriteria8.index');
+        Route::post('/kriteria8', [Kriteria8Controller::class, 'store'])->name('kriteria8.store');
+        Route::post('/kriteria8/list', [Kriteria8Controller::class, 'list'])->name('kriteria.8.list');
+        Route::get('/kriteria8/{id}/show', [Kriteria8Controller::class, 'preview'])->name('kriteria8.detail');
+        Route::get('/kriteria8/{id}/preview-pdf', [Kriteria8Controller::class, 'previewpdf'])->name('kriteria8.preview-pdf');
+        Route::get('/kriteria8/{id}/edit', [Kriteria8Controller::class, 'edit'])->name('kriteria8.edit');
+        Route::put('/kriteria8/{id}', [Kriteria8Controller::class, 'update'])->name('kriteria8.update');
+        Route::delete('/kriteria8/{id}', [Kriteria8Controller::class, 'destroy'])->name('kriteria8.destroy');
+    });
+
+    Route::middleware(['authorize:A9'])->group(function () {
+        Route::get('/kriteria9/input', [Kriteria9Controller::class, 'create'])->name('kriteria9.input');
+        Route::get('/kriteria9', [Kriteria9Controller::class, 'index'])->name('kriteria9.index');
+        Route::post('/kriteria9', [Kriteria9Controller::class, 'store'])->name('kriteria9.store');
+        Route::post('/kriteria9/list', [Kriteria9Controller::class, 'list'])->name('kriteria.9.list');
+        Route::get('/kriteria9/{id}/show', [Kriteria9Controller::class, 'preview'])->name('kriteria9.detail');
+        Route::get('/kriteria9/{id}/preview-pdf', [Kriteria9Controller::class, 'previewpdf'])->name('kriteria9.preview-pdf');
+        Route::get('/kriteria9/{id}/edit', [Kriteria9Controller::class, 'edit'])->name('kriteria9.edit');
+        Route::put('/kriteria9/{id}', [Kriteria9Controller::class, 'update'])->name('kriteria9.update');
+        Route::delete('/kriteria9/{id}', [Kriteria9Controller::class, 'destroy'])->name('kriteria9.destroy');
+    });
+
+Route::get('/validasiDirektur', [ValidasiDirController::class, 'index'])->name('validasi.index')->middleware('authorize:KJR');
+Route::post('/validasiDirektur/list', [ValidasiDirController::class, 'list'])->name('validasi.list')->middleware('authorize:KJR');
+Route::post('/validasiDirektur/show', [ValidasiDirController::class, 'show'])->name('validasi.show')->middleware('authorize:KJR');
+Route::post('/validasiDirektur/pdf', [ValidasiDirController::class, 'generatePdfDetailKriteriaBatch'])->name('validasi.pdf')->middleware('authorize:KJR');
+Route::post('/validasiDirektur/update', [ValidasiDirController::class, 'update'])->name('validasi.update')->middleware('authorize:KJR');
+
 });

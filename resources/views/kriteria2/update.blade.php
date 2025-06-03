@@ -101,7 +101,7 @@
                 <div class="col-12">
                     <div class="card border shadow-xs mb-4">
                         <div class="custom-form-section p-4">
-                            <h4 class="form-title text-right mb-4">Edit Kriteria 2 - VMTS</h4>
+                            <h4 class="form-title text-right mb-4">Edit Kriteria 2 - Tata Kelola, Tata Pamong , dan Kerjasama</h4>
 
                             @php
                                 $fields = [
@@ -196,7 +196,7 @@
                                 <div class="mt-4 text-end">
                                     <button type="submit" name="status" value="save" class="btn btn-secondary px-4 me-2">Save</button>
     <button type="submit" name="status" value="submitted" class="btn btn-primary px-4">Submit</button>
-                                    <a href="{{ route('kriteria.index') }}" class="btn btn-danger px-4 me-2">Cancel</a>
+                                    <a href="{{ route('kriteria2.index') }}" class="btn btn-danger px-4 me-2">Cancel</a>
                                 </div>
                             </form>
                         </div>

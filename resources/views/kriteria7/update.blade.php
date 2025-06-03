@@ -89,7 +89,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Dashboard</a></li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Kriteria 4</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Kriteria 6</li>
                     </ol>
                 </nav>
             </div>
@@ -101,7 +101,7 @@
                 <div class="col-12">
                     <div class="card border shadow-xs mb-4">
                         <div class="custom-form-section p-4">
-                            <h4 class="form-title text-right mb-4">Edit Kriteria 4 - SDM</h4>
+                            <h4 class="form-title text-right mb-4">Edit Kriteria 7 - Penelitian</h4>
 
                             @php
                                 $fields = [
@@ -113,7 +113,7 @@
                                 ];
                             @endphp
 
-                            <form method="POST" action="{{ route('kriteria4.update', $detail->id_detail_kriteria) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('kriteria7.update', $detail->id_detail_kriteria) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="status" id="status" value="saved">
@@ -196,7 +196,7 @@
                                 <div class="mt-4 text-end">
                                     <button type="submit" name="status" value="save" class="btn btn-secondary px-4 me-2">Save</button>
     <button type="submit" name="status" value="submitted" class="btn btn-primary px-4">Submit</button>
-                                    <a href="{{ route('kriteria4.index') }}" class="btn btn-danger px-4 me-2">Cancel</a>
+                                    <a href="{{ route('kriteria7.index') }}" class="btn btn-danger px-4 me-2">Cancel</a>
                                 </div>
                             </form>
                         </div>
@@ -221,7 +221,7 @@
             }
         </script>
 
-        <script src="https://cdn.tiny.cloud/1/0cmexsvcbzeoisdx6f3iv5ktdr2p1ri5zx41b7ilmogth0ng/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.1/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             tinymce.init({
                 selector: 'textarea#penetapan, textarea#pelaksanaan, textarea#evaluasi, textarea#pengendalian, textarea#peningkatan',

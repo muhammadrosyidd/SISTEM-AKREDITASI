@@ -100,7 +100,7 @@ html >
                     <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
                                 href="javascript:;">Dashboard</a></li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Kriteria 5</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Kriteria 8</li>
                     </ol>
                 </nav>
             </div>
@@ -112,8 +112,8 @@ html >
                 <div class="col-12">
                     <div class="card border shadow-xs mb-4">
                         <div class="custom-form-section p-4">
-                            <h4 class="form-title text-right mb-4">Kriteria 5 - Keuangan, Sarana, dan Prasarana</h4>
-                            <form method="POST" action="{{ route('kriteria5.store') }}" enctype="multipart/form-data">
+                            <h4 class="form-title text-right mb-4">Kriteria 8 - VMTS</h4>
+                            <form method="POST" action="{{ route('kriteria8.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <!-- Hidden status field -->
                                 <input type="hidden" name="status" id="status" value="saved">
@@ -288,7 +288,7 @@ html >
     <button type="submit" name="status" value="save" class="btn btn-secondary px-4 me-2">Save</button>
     <button type="submit" name="status" value="submitted" class="btn btn-primary px-4">Submit</button>
     <button type="reset" class="btn btn-warning px-4 me-2">Reset</button>
-    <a href="{{ route('kriteria5.index') }}" class="btn btn-danger px-4">Cancel</a>
+    <a href="{{ route('kriteria8.index') }}" class="btn btn-danger px-4">Cancel</a>
 </div>
 
                             </form>
