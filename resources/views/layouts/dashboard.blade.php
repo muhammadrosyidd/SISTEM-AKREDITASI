@@ -12,9 +12,6 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,6 +22,7 @@
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <!-- Nucleo Icons -->
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -33,9 +31,26 @@
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+    .navbar .fa-bell {
+      font-size: 1.25rem;
+      color: #4b5563;
+    }
+    .dropdown-menu .dropdown-header {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+    .dropdown-menu .dropdown-item {
+      font-size: 0.875rem;
+    }
+    .dropdown-menu .text-secondary {
+      font-size: 0.75rem;
+    }
+  </style>
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   @include('layouts.sidebar')
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -48,6 +63,37 @@
           </ol>
           <h6 class="font-weight-bold mb-0">Dashboard</h6>
         </nav>
+        <!-- Notification Bell Dropdown -->
+        <ul class="navbar-nav align-items-center ms-auto">
+          <li class="nav-item dropdown pe-3 d-flex align-items-center">
+            <a href="#" class="nav-link text-body p-0 position-relative" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+              @if(!$notifications->isEmpty())
+              
+              <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                <span class="visually-hidden">New alerts</span>
+              </span>
+              @endif
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n3" aria-labelledby="dropdownMenuButton" style="max-height: 300px; overflow-y: auto;">
+              <li>
+                <h6 class="dropdown-header text-uppercase font-weight-bold">Notifikasi</h6>
+              </li>
+              @if ($notifications->isEmpty())
+                <li class="dropdown-item text-sm text-muted">Tidak ada notifikasi baru.</li>
+              @else
+                @foreach ($notifications as $notification)
+                  <li class="dropdown-item border-bottom">
+                    <div class="d-flex flex-column">
+                      <span class="text-sm font-weight-bold">{{ $notification['message'] }}</span>
+                      <small class="text-xs text-secondary">{{ \Carbon\Carbon::parse($notification['created_at'])->format('d M Y H:i') }}</small>
+                    </div>
+                  </li>
+                @endforeach
+              @endif
+            </ul>
+          </li>
+        </ul>
       </div>
     </nav>
     <!-- End Navbar -->

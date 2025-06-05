@@ -73,7 +73,7 @@
             </div>
         </div>
 
-                    <iframe src="{{ url('validasi/' . $batch->id_pengisian . '/preview-pdf') }}" width="100%" height="600px" style="border:1px solid #ccc; border-radius:4px;"></iframe>
+                    <iframe src="{{ url('validasiDirektur/' . $batch->id_pengisian . '/pdf') }}" width="100%" height="600px" style="border:1px solid #ccc; border-radius:4px;"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

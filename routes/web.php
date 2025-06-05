@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
 
     Route::middleware(['authorize:A1'])->group(function () {
         Route::get('/kriteria1', [KriteriaController::class, 'index'])->name('kriteria1.index');
@@ -165,11 +166,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Validasi Direktur (HANYA UNTUK ROLE DIR)
-    Route::middleware(['auth', 'authorize:DIR'])->group(function () { // 'auth' middleware is redundant here. The 'authorize:DIR' middleware is also duplicated on each route inside.
+    Route::middleware(['auth', 'authorize:DKT'])->group(function () { // 'auth' middleware is redundant here. The 'authorize:DIR' middleware is also duplicated on each route inside.
         Route::get('/validasiDirektur', [ValidasiDirController::class, 'index'])->name('validasi.index'); // Removed duplicate middleware
         Route::post('/validasiDirektur/list', [ValidasiDirController::class, 'list'])->name('validasi.list'); // Removed duplicate middleware
         Route::post('/validasiDirektur/show', [ValidasiDirController::class, 'show'])->name('validasi.show'); // Removed duplicate middleware
-        Route::post('/validasiDirektur/pdf', [ValidasiDirController::class, 'generatePdfDetailKriteriaBatch'])->name('validasi.pdf'); // Removed duplicate middleware
+        Route::get('/validasiDirektur/{id}/pdf', [ValidasiDirController::class, 'generatePdfDetailKriteriaBatch'])->name('validasi.pdf'); // Removed duplicate middleware
         Route::post('/validasiDirektur/update', [ValidasiDirController::class, 'update'])->name('validasi.update'); // Removed duplicate middleware
     });
 });
