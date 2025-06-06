@@ -54,9 +54,11 @@
                         <div
                             class="card-header pb-0 d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Daftar Kriteria</h6>
-                            <a href="{{ route('kriteria9.input') }}" class="btn btn-sm btn-success">
-                                <i class="fas fa-plus me-1"></i> Input Kriteria
-                            </a>
+                            @if (auth()->user()->role->role_kode === 'A9')
+    <a href="{{ route('kriteria.9.input') }}" class="btn btn-sm btn-success">
+        <i class="fas fa-plus me-1"></i> Input Kriteria
+    </a>
+@endif
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="px-3 mt-3">
@@ -364,19 +366,29 @@ document.addEventListener('DOMContentLoaded', function() {
                         width: "30%",
                         render: function (data, type, row, meta) {
                             const id = row.id_detail_kriteria;
-                            return `
-                                <div class="btn-action-group d-flex justify-content-center">
-                                    <button class="btn btn-info btn-sm" onclick="showDetail(${id})" title="Detail">
-                                        <i class="fas fa-eye fa-xs"></i> Detail
-                                    </button>
-                                    <a href="${base_url}/${id}/edit" class="btn btn-warning btn-sm" title="Edit">
-                                        <i class="fas fa-edit fa-xs"></i> Edit
-                                    </a>
-                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete(${id})" title="Hapus">
-                                        <i class="fas fa-trash fa-xs "></i> Hapus
-                                    </button>
-                                </div>
-                            `;
+                            const isEditable = (row.status === 'save' || row.status === 'revisi');
+    const userRole = "{{ Auth::user()->role->role_kode }}";
+
+                        let buttons = `
+        <div class="btn-action-group d-flex justify-content-center">
+            <button class="btn btn-info btn-sm" onclick="showDetail(${row.id_detail_kriteria})" title="Detail">
+                <i class="fas fa-eye fa-xs"></i> Detail
+            </button>
+    `;
+
+    if (userRole === 'A9') {  // Check role A1 untuk tombol Edit dan Hapus
+        buttons += `
+            <a href="${base_url}/${row.id_detail_kriteria}/edit" class="btn btn-warning btn-sm ${isEditable ? '' : 'disabled'}" title="Edit">
+                <i class="fas fa-edit fa-xs"></i> Edit
+            </a>
+            <button class="btn btn-danger btn-sm" onclick="confirmDelete(${row.id_detail_kriteria})" title="Hapus">
+                <i class="fas fa-trash fa-xs "></i> Hapus
+            </button>
+        `;
+    }
+
+    buttons += `</div>`;
+    return buttons;
                         }
                     }
                 ],

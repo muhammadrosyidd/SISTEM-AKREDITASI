@@ -50,9 +50,14 @@ class Kriteria5Controller extends Controller
 
     public function list(Request $request)
     {
+        $userRole = auth()->user()->role->role_kode;
         $details = DetailKriteriaModel::with('kriteria:id_kriteria,nama_kriteria')
             ->select('id_detail_kriteria', 'id_kriteria', 'status')
             ->whereIn('id_kriteria',[5]);
+
+        if (!in_array($userRole, ['A5'])) {
+        $details->whereIn('status', ['submitted','acc1','acc2']);
+    }
 
         //Filter data berdasarkan id_detail_kriteria
         if ($request->id_detail_kriteria) {
