@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
 
     // Kriteria 1 (HANYA UNTUK A1)
     Route::middleware(['authorize:A1'])->group(function () {
@@ -228,7 +228,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kriteria9/{id}/show', [Kriteria9Controller::class, 'preview'])->name('kriteria9.preview');
         Route::get('/kriteria9/{id}/preview-pdf', [Kriteria9Controller::class, 'previewpdf'])->name('kriteria9.preview-pdf');
     });
-    
+
 });
 
 
