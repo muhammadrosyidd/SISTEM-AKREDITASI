@@ -253,14 +253,23 @@
             @endif
 
             {{-- [MODIFIKASI] Menampilkan menu Manage User untuk semua role --}}
+            @if (Auth::user()->role->role_kode == 'ADM')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('superadmin.index') ? 'active' : '' }}"
+                        href="{{ route('superadmin.index') }}">
+                        <div class="nav-icon"><i class="bi bi-people-fill"></i></div>
+                        <span class="nav-link-text">Manage User</span>
+                    </a>
+                </li>
+            @endif
+
             <li class="nav-item">
-                {{-- Pastikan Anda membuat rute dengan nama 'users.index' di web.php --}}
-                <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                    href="{{-- route('users.index') --}}#">
-                    <div class="nav-icon"><i class="bi bi-people-fill"></i></div>
-                    <span class="nav-link-text">Manage User</span>
-                </a>
-            </li>
+                    <a class="nav-link {{ request()->routeIs('dokumenFinal.index') ? 'active' : '' }}"
+                        href="{{ route('dokumenFinal.index') }}">
+                        <div class="nav-icon"><i class="bi bi-file-earmark-text"></i></div>
+                        <span class="nav-link-text">Dokumen Final</span>
+                    </a>
+                </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="#"

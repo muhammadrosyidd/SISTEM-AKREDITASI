@@ -11,11 +11,13 @@
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/corporate-ui-dashboard.css?v=1.0.0') }}" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>KREDITASI D4 SIB</title>
+    <title>AKREDITASI D4 SIB - User Management</title>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
 </head>
 
@@ -53,53 +55,14 @@
                                 <table class="table align-items-center mb-0" id="usersTable" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" width="10%">ID</th>
-                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" width="25%">Username</th>
-                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" width="25%">Name</th>
-                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" width="20%">Role</th>
-                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center" width="20%">Actions</th>
+                                            <th>ID</th>
+                                            <th>Username</th>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach($users as $user)
-                                        <tr>
-                                            <td class="text-center align-middle">
-                                                <span class="text-xs font-weight-bold">{{ $user->id_user }}</span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-xs font-weight-normal">{{ $user->username }}</span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-xs font-weight-normal">{{ $user->nama_user }}</span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="text-xs font-weight-normal">{{ $user->getRoleName() }}</span>
-                                            </td>
-                                            <td class="text-center align-middle">
-                                                <div class="btn-action-group d-flex justify-content-center">
-                                                    <button class="btn btn-warning btn-sm me-2 btn-edit"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editUserModal"
-                                                            data-user-id="{{ $user->id_user }}"
-                                                            data-username="{{ $user->username }}"
-                                                            data-nama-user="{{ $user->nama_user }}"
-                                                            data-role-id="{{ $user->id_role }}"
-                                                            title="Edit">
-                                                        <i class="fas fa-edit fa-xs"></i> Edit
-                                                    </button>
-                                                    <form action="{{ route('superadmin.users.destroy', $user->id_user) }}" method="POST" class="d-inline-block delete-user-form">
-    @csrf
-    @method('DELETE')
-    <button type="button" class="btn btn-danger btn-sm btn-delete" title="Delete">
-        <i class="fas fa-trash fa-xs"></i> Delete
-    </button>
-</form>
-
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -115,42 +78,109 @@
     <!-- Include Edit User Modal -->
     @include('superadmin.edit')
 
-    <script>
-    // Ensure modal closes properly on cancel
-    document.querySelector('.btn-secondary').addEventListener('click', function() {
-        var modal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
-        modal.hide(); // Close the modal
-        document.getElementById('editUserForm').reset(); // Optionally reset the form
-    });
-    </script>
+    <!-- JQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const deleteButtons = document.querySelectorAll('.btn-delete');
-
-        deleteButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const form = this.closest('form');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'Cancel'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
+    $(document).ready(function () {
+        var dataUsers = $('#usersTable').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route('superadmin.user.list') }}",
+                type: "POST",
+                data: function (d) {
+                    d._token = "{{ csrf_token() }}";
+                }
+            },
+            columns: [
+                { data: "DT_RowIndex", className: "text-center align-middle", orderable: false, searchable: false, width: "10%" },
+                { data: "username", className: "align-middle", width: "25%" },
+                { data: "nama_user", className: "align-middle", width: "25%" },
+                { data: "role_name", className: "align-middle", width: "20%" },
+                { 
+                    data: "aksi", 
+                    className: "text-center align-middle", 
+                    orderable: false, 
+                    searchable: false, 
+                    width: "20%",
+                    render: function(data, type, row, meta) {
+                        return `
+                            <div class="btn-action-group d-flex justify-content-center">
+                                <button class="btn btn-warning btn-sm me-2 btn-edit"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editUserModal"
+                                        data-user-id="${row.id_user}"
+                                        data-username="${row.username}"
+                                        data-nama-user="${row.nama_user}"
+                                        data-role-id="${row.id_role}"
+                                        title="Edit">
+                                    <i class="fas fa-edit fa-xs"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm btn-delete" data-id="${row.id_user}" title="Delete">
+                                    <i class="fas fa-trash fa-xs"></i> Delete
+                                </button>
+                            </div>`;
                     }
+                }
+            ],
+            order: [[0, 'asc']],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/id.json",
+                info: "_TOTAL_ data",
+                infoEmpty: "",
+                infoFiltered: "",
+                paginate: {
+                    first: "",
+                    last: "",
+                    next: "",
+                    previous: ""
+                }
+            },
+            dom: '<"top"<"row"<"col-md-6"l><"col-md-6"f>>>rt<"bottom"<"row"<"col-md-6"i><"col-md-6"p>>>',
+            drawCallback: function () {
+                $('.btn-delete').off('click').on('click', function() {
+                    const userId = $(this).data('id');
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const form = document.createElement('form');
+                            form.method = 'POST';
+                            form.action = `/superadmin/users/${userId}`;
+                            
+                            const csrfInput = document.createElement('input');
+                            csrfInput.type = 'hidden';
+                            csrfInput.name = '_token';
+                            csrfInput.value = '{{ csrf_token() }}';
+                            form.appendChild(csrfInput);
+
+                            const methodInput = document.createElement('input');
+                            methodInput.type = 'hidden';
+                            methodInput.name = '_method';
+                            methodInput.value = 'DELETE';
+                            form.appendChild(methodInput);
+
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+                    });
                 });
-            });
+            }
         });
     });
-</script>
-
+    </script>
 </body>
 
 </html>

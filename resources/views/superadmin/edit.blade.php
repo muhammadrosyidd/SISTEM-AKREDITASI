@@ -29,14 +29,14 @@
                      <div class="mb-3">
                         <label for="edit_role_id" class="form-label">Role</label>
                         <select class="form-select" id="edit_role_id" name="id_role" required>
-                            <option value="" disabled>Select Role</option>
-                            @foreach($roles as $role)
-                                <option value="{{ $role->id_role }}" 
-                                        {{ old('id_role', $user->id_role) == $role->id_role ? 'selected' : '' }}>
-                                    {{ $role->role_nama }}
-                                </option>
-                            @endforeach
-                        </select>
+    <option value="" disabled selected>Select Role</option>
+    @foreach($roles as $role)
+        <option value="{{ $role->id_role }}">
+            {{ $role->role_nama }}
+        </option>
+    @endforeach
+</select>
+
                     </div>
                 </div>
                 

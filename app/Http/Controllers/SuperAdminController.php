@@ -6,6 +6,7 @@ use App\Models\RoleModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class SuperAdminController extends Controller
 {
@@ -19,6 +20,29 @@ class SuperAdminController extends Controller
         // Pass the users to the view
         return view('superadmin.index', compact('users','roles'));
     }
+
+    public function list(Request $request)
+{
+    if ($request->ajax()) {
+        // Ambil data user beserta relasi role
+        $users = UserModel::with('role')->select('id_user', 'username', 'nama_user', 'id_role');
+
+        return DataTables::of($users)
+            ->addIndexColumn()
+            ->addColumn('role_name', function($user) {
+                return $user->role ? $user->role->role_nama : '-';
+            })
+            ->addColumn('aksi', function($user) {
+                // Kolom aksi dihandle via render JS DataTables, jadi di sini dikosongi
+                return '';
+            })
+            ->rawColumns(['aksi']) // supaya kolom aksi bisa berisi HTML (walaupun nanti diisi di JS)
+            ->make(true);
+    }
+
+    // kalau bukan ajax, redirect balik
+    return redirect()->route('superadmin.index');
+}
 
     public function create()
 {
