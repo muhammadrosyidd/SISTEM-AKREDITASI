@@ -18,37 +18,63 @@ class ValidasiKjrController extends Controller
     }
 
     public function list(Request $request)
-    {
-        $details = DetailKriteriaModel::with('kriteria')
-            ->whereIn('status', ['submitted', 'revisi', 'acc1'])
-            ->orderBy('detail_kriteria.created_at', 'desc');
+{
+    $details = DetailKriteriaModel::with('kriteria')
+        ->whereIn('status', ['submitted', 'revisi', 'acc1'])
+        ->orderBy('id_kriteria', 'asc')  // urutkan berdasarkan kriteria_id ASC
+        ->orderBy('id_pengisian', 'asc');       // lalu batch ASC
 
-        return DataTables::of($details)
-            ->addIndexColumn()
-            ->addColumn('nama_kriteria', function ($row) {
-                return $row->kriteria->nama_kriteria ?? '-';
-            })
-            ->addColumn('tanggal', function ($row) {
-                return [
-                    'display' => $row->created_at ? Carbon::parse($row->created_at)->format('d/m/Y') : '-',
-                    'timestamp' => $row->created_at ? $row->created_at->timestamp : 0
-                ];
-            })
-            ->addColumn('status', function ($row) {
-                return $row->status;
-            })
-            ->addColumn('aksi', function ($row) {
-                if ($row->status === 'acc1') {
-                    return '';
-                }
-                return '<button type="button" class="btn-validasi btn-detail" data-id="' . $row->id_detail_kriteria . '">Validasi</button>';
-            })
-            ->orderColumn('tanggal', function ($query, $order) {
-                $query->orderBy('detail_kriteria.created_at', $order);
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
+    return DataTables::of($details)
+        ->addIndexColumn()
+        
+        // Nama Kriteria
+        ->addColumn('nama_kriteria', function ($row) {
+            return $row->kriteria->nama_kriteria ?? '-';
+        })
+        
+        // Tanggal
+        ->addColumn('tanggal', function ($row) {
+            return [
+                'display' => $row->created_at ? Carbon::parse($row->created_at)->format('d/m/Y') : '-',
+                'timestamp' => $row->created_at ? $row->created_at->timestamp : 0
+            ];
+        })
+        
+        // Status
+        ->addColumn('status', function ($row) {
+            return $row->status;
+        })
+        
+        // Aksi button
+        ->addColumn('aksi', function ($row) {
+            if ($row->status === 'acc1') {
+                return '';
+            }
+            return '<button type="button" class="btn-validasi btn-detail" data-id="' . $row->id_detail_kriteria . '">Validasi</button>';
+        })
+        
+        // Kolom hidden kriteria_id (buat sorting)
+        ->addColumn('id_kriteria', function ($row) {
+            return $row->id_kriteria;
+        })
+        
+        // Kolom hidden batch (buat sorting)
+        ->addColumn('batch', function ($row) {
+            return $row->batch;
+        })
+        
+        // Kolom tanggal bisa diurutkan
+        ->orderColumn('tanggal', function ($query, $order) {
+            $query->orderBy('detail_kriteria.created_at', $order);
+        })
+        
+        // Kolom aksi boleh pakai raw html (supaya button Validasi jalan)
+        ->rawColumns(['aksi'])
+        
+        // Return ke DataTables
+        ->make(true);
+}
+
 
     public function modalDetail($id)
     {

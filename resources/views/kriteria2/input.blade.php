@@ -6,9 +6,9 @@ html >
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/polinema_logo.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/kriteria.css')}}">
-    <title>Corporate UI by Creative Tim</title>
+    <title>KRITERIA 2 - INPUT</title>
 
     <!--     Fonts and icons     -->
     <link
@@ -45,23 +45,37 @@ html >
 
     /* File preview container adjustments */
     .file-preview {
-        margin-top: 10px;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        position: relative;
-        width: 350px;
-        height: auto;
-        margin: 10px auto;
-    }
+    border: 1px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+    overflow: hidden; 
+}
 
-    /* Ensure the preview box and image have the same dimensions */
-    .preview-box, [id^="imagePreview"] {
-        width: 350px;
-        height: 300px;
-    }
+.preview-box {
+    width: calc(100% - 4px); 
+    height: calc(200px - 4px); 
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #adb5bd;
+    border-radius: 6px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    background-clip: padding-box; 
+}
 
     /* Ensure images maintain aspect ratio but fit within container */
     [id^="imagePreview"] {
@@ -154,7 +168,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="pelaksanaan" class="form-label">Pelaksanaan</label>
+                                        <label for="pelaksanaan" class="form-label" style="font-size: large; color: #1e293b">Pelaksanaan</label>
                                         <textarea name="pelaksanaan" id="pelaksanaan"
                                             class="form-control @error('pelaksanaan') is-invalid @enderror"
                                             placeholder="Masukkan pelaksanaan">{{ old('pelaksanaan') }}</textarea>
@@ -187,7 +201,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="evaluasi" class="form-label">Evaluasi</label>
+                                        <label for="evaluasi" class="form-label" style="font-size: large; color: #1e293b">Evaluasi</label>
                                         <textarea name="evaluasi" id="evaluasi"
                                             class="form-control @error('evaluasi') is-invalid @enderror"
                                             placeholder="Masukkan evaluasi">{{ old('evaluasi') }}</textarea>
@@ -220,7 +234,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="pengendalian" class="form-label">Pengendalian</label>
+                                        <label for="pengendalian" class="form-label" style="font-size: large; color: #1e293b">Pengendalian</label>
                                         <textarea name="pengendalian" id="pengendalian"
                                             class="form-control @error('pengendalian') is-invalid @enderror"
                                             placeholder="Masukkan pengendalian">{{ old('pengendalian') }}</textarea>
@@ -253,7 +267,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="peningkatan" class="form-label">Peningkatan</label>
+                                        <label for="peningkatan" class="form-label" style="font-size: large; color: #1e293b">Peningkatan</label>
                                         <textarea name="peningkatan" id="peningkatan" rows="3"
                                             class="form-control @error('peningkatan') is-invalid @enderror"
                                             placeholder="Masukkan peningkatan">{{ old('peningkatan') }}</textarea>

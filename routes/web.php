@@ -12,8 +12,10 @@ use App\Http\Controllers\Kriteria6Controller;
 use App\Http\Controllers\Kriteria7Controller;
 use App\Http\Controllers\Kriteria8Controller;
 use App\Http\Controllers\Kriteria9Controller;
-use App\Http\Controllers\ValidasiKjrController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ValidasiDirController;
+use App\Http\Controllers\ValidasiKjrController;
+use App\Http\Controllers\DokumenFinalController;
 
 Route::get('/', function () {
     return view('index');
@@ -24,16 +26,26 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postlogin'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// ROUTE TERPROTEKSI (HANYA UNTUK USER YANG SUDAH LOGIN)
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth'])->group(function () {
 
-    // Dashboard
+    // --- PERBAIKAN RUTE DASHBOARD ---
+    // Rute utama /dashboard yang akan diatur oleh method index()
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Rute spesifik untuk setiap role agar redirect dari AuthController berfungsi
+    Route::get('/dashboard/kajur', [DashboardController::class, 'kajurDashboard'])->name('dashboard.kajur');
+    Route::get('/dashboard/direktur', [DashboardController::class, 'direkturDashboard'])->name('dashboard.direktur');
+    Route::get('/dashboard/anggota', [DashboardController::class, 'anggotaDashboard'])->name('dashboard.anggota');
 
     // Kriteria 1 (HANYA UNTUK A1)
     Route::middleware(['authorize:A1'])->group(function () {
         Route::get('/kriteria1/input', [KriteriaController::class, 'create'])->name('kriteria.1.input');
+        Route::post('/kriteria/submit/{id}', [KriteriaController::class, 'submitDetailKriteria'])->name('kriteria.submit');
         Route::get('/kriteria1', [KriteriaController::class, 'index'])->name('kriteria.index'); // Note: kriteria1.index is already defined above with the same controller and method. Consider aliasing or restructuring if they are different.
         Route::post('/kriteria1', [KriteriaController::class, 'store'])->name('kriteria1.store');
         Route::post('/kriteria1/list', [KriteriaController::class, 'list'])->name('kriteria.1.list');
@@ -111,8 +123,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Kriteria 7 (HANYA UNTUK A7)
     Route::middleware(['authorize:A7'])->group(function () {
-        Route::get('/kriteria7/input', [Kriteria7Controller::class, 'create'])->name('kriteria7.input'); // Consider naming kriteria.7.input for consistency
-        Route::get('/kriteria7', [Kriteria7Controller::class, 'index'])->name('kriteria7.index');
+        Route::get('/kriteria7/input', [Kriteria7Controller::class, 'create'])->name('kriteria.7.input'); // Consider naming kriteria.7.input for consistency
+        Route::get('/kriteria7', [Kriteria7Controller::class, 'index'])->name('kriteria.7.index');
         Route::post('/kriteria7', [Kriteria7Controller::class, 'store'])->name('kriteria7.store');
         Route::post('/kriteria7/list', [Kriteria7Controller::class, 'list'])->name('kriteria.7.list');
         Route::get('/kriteria7/{id}/show', [Kriteria7Controller::class, 'preview'])->name('kriteria7.detail');
@@ -124,7 +136,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Kriteria 8 (HANYA UNTUK A8)
     Route::middleware(['authorize:A8'])->group(function () {
-        Route::get('/kriteria8/input', [Kriteria8Controller::class, 'create'])->name('kriteria8.input'); // Consider naming kriteria.8.input for consistency
+        Route::get('/kriteria8/input', [Kriteria8Controller::class, 'create'])->name('kriteria.8.input'); // Consider naming kriteria.8.input for consistency
         Route::get('/kriteria8', [Kriteria8Controller::class, 'index'])->name('kriteria8.index');
         Route::post('/kriteria8', [Kriteria8Controller::class, 'store'])->name('kriteria8.store');
         Route::post('/kriteria8/list', [Kriteria8Controller::class, 'list'])->name('kriteria.8.list');
@@ -137,7 +149,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Kriteria 9 (HANYA UNTUK A9)
     Route::middleware(['authorize:A9'])->group(function () {
-        Route::get('/kriteria9/input', [Kriteria9Controller::class, 'create'])->name('kriteria9.input'); // Consider naming kriteria.9.input for consistency
+        Route::get('/kriteria9/input', [Kriteria9Controller::class, 'create'])->name('kriteria.9.input'); // Consider naming kriteria.9.input for consistency
         Route::get('/kriteria9', [Kriteria9Controller::class, 'index'])->name('kriteria9.index');
         Route::post('/kriteria9', [Kriteria9Controller::class, 'store'])->name('kriteria9.store');
         Route::post('/kriteria9/list', [Kriteria9Controller::class, 'list'])->name('kriteria.9.list');
@@ -166,68 +178,83 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/validasiDirektur/update', [ValidasiDirController::class, 'update'])->name('validasi.update'); // Removed duplicate middleware
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria1', [KriteriaController::class, 'index'])->name('kriteria.index');
         Route::post('/kriteria1/list', [KriteriaController::class, 'list'])->name('kriteria.1.list');
         Route::get('/kriteria1/{id}/show', [KriteriaController::class, 'preview'])->name('kriteria1.preview');
         Route::get('/kriteria1/{id}/preview-pdf', [KriteriaController::class, 'previewpdf'])->name('kriteria1.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria2', [Kriteria2Controller::class, 'index'])->name('kriteria2.index');
         Route::post('/kriteria2/list', [Kriteria2Controller::class, 'list'])->name('kriteria.2.list');
         Route::get('/kriteria2/{id}/show', [Kriteria2Controller::class, 'preview'])->name('kriteria2.preview');
         Route::get('/kriteria2/{id}/preview-pdf', [Kriteria2Controller::class, 'previewpdf'])->name('kriteria2.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria3', [Kriteria3Controller::class, 'index'])->name('kriteria3.index');
         Route::post('/kriteria3/list', [Kriteria3Controller::class, 'list'])->name('kriteria.3.list');
         Route::get('/kriteria3/{id}/show', [Kriteria3Controller::class, 'preview'])->name('kriteria3.preview');
         Route::get('/kriteria3/{id}/preview-pdf', [Kriteria3Controller::class, 'previewpdf'])->name('kriteria3.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria4', [Kriteria4Controller::class, 'index'])->name('kriteria4.index');
         Route::post('/kriteria4/list', [Kriteria4Controller::class, 'list'])->name('kriteria.4.list');
         Route::get('/kriteria4/{id}/show', [Kriteria4Controller::class, 'preview'])->name('kriteria4.preview');
         Route::get('/kriteria4/{id}/preview-pdf', [Kriteria4Controller::class, 'previewpdf'])->name('kriteria4.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria5', [Kriteria5Controller::class, 'index'])->name('kriteria5.index');
         Route::post('/kriteria5/list', [Kriteria5Controller::class, 'list'])->name('kriteria.5.list');
         Route::get('/kriteria5/{id}/show', [Kriteria5Controller::class, 'preview'])->name('kriteria5.preview');
         Route::get('/kriteria5/{id}/preview-pdf', [Kriteria5Controller::class, 'previewpdf'])->name('kriteria5.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria6', [Kriteria6Controller::class, 'index'])->name('kriteria6.index');
         Route::post('/kriteria6/list', [Kriteria6Controller::class, 'list'])->name('kriteria.6.list');
         Route::get('/kriteria6/{id}/show', [Kriteria6Controller::class, 'preview'])->name('kriteria6.preview');
         Route::get('/kriteria6/{id}/preview-pdf', [Kriteria6Controller::class, 'previewpdf'])->name('kriteria6.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria7', [Kriteria7Controller::class, 'index'])->name('kriteria7.index');
         Route::post('/kriteria7/list', [Kriteria7Controller::class, 'list'])->name('kriteria.7.list');
         Route::get('/kriteria7/{id}/show', [Kriteria7Controller::class, 'preview'])->name('kriteria7.preview');
         Route::get('/kriteria7/{id}/preview-pdf', [Kriteria7Controller::class, 'previewpdf'])->name('kriteria7.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria8', [Kriteria8Controller::class, 'index'])->name('kriteria8.index');
         Route::post('/kriteria8/list', [Kriteria8Controller::class, 'list'])->name('kriteria.8.list');
         Route::get('/kriteria8/{id}/show', [Kriteria8Controller::class, 'preview'])->name('kriteria8.preview');
         Route::get('/kriteria8/{id}/preview-pdf', [Kriteria8Controller::class, 'previewpdf'])->name('kriteria8.preview-pdf');
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,ADM'])->group(function () {
         Route::get('/kriteria9', [Kriteria9Controller::class, 'index'])->name('kriteria9.index');
         Route::post('/kriteria9/list', [Kriteria9Controller::class, 'list'])->name('kriteria.9.list');
         Route::get('/kriteria9/{id}/show', [Kriteria9Controller::class, 'preview'])->name('kriteria9.preview');
         Route::get('/kriteria9/{id}/preview-pdf', [Kriteria9Controller::class, 'previewpdf'])->name('kriteria9.preview-pdf');
     });
+
+    Route::get('superadmin/', [SuperAdminController::class, 'index'])->name('superadmin.index');
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/superadmin/users/list', [SuperAdminController::class, 'list'])->name('superadmin.user.list');
+        Route::get('superadmin/users/create', [SuperAdminController::class, 'create'])->name('superadmin.users.create');
+        Route::post('superadmin/users', [SuperAdminController::class, 'store'])->name('superadmin.users.store');
+        Route::get('superadmin/users/{id}/edit', [SuperAdminController::class, 'edit'])->name('superadmin.users.edit');
+        Route::put('superadmin/users/{id}', [SuperAdminController::class, 'update'])->name('superadmin.users.update');
+        Route::delete('superadmin/users/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.users.destroy');
+    });
+
+    // Dokumen Final
+Route::get('/dokumen-final', [DokumenFinalController::class, 'index'])->name('dokumenFinal.index');
+Route::post('/dokumen-final/list', [DokumenFinalController::class, 'list'])->name('dokumenFinal.list');
+Route::get('/dokumen-final/pdf/{id_pengisian}', [DokumenFinalController::class, 'generatePdf'])->name('dokumenFinal.generatePdf');
 
 });
 

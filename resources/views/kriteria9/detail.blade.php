@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <th class="text-right">Komentar:</th>
-                            <td>{{ $detail->komentar->komentar ?? 'Belum ada komentar' }}</td>
+                            <td>{{ $detail->komentar->komen ?? 'Belum ada komentar' }}</td>
                         </tr>
                     </table>
                 </div>

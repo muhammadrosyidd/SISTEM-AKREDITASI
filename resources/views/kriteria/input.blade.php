@@ -1,14 +1,13 @@
-<!DOCTYPE
-html >
-  <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/polinema_logo.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/kriteria.css')}}">
-    <title>Corporate UI by Creative Tim</title>
+    <title>KRITERIA 1 - INPUT</title>
 
     <!--     Fonts and icons     -->
     <link
@@ -25,68 +24,84 @@ html >
 
     <!-- Custom CSS for file input -->
     <style>
-    /* Updated Image preview styles */
-    [id^="imagePreview"] {
-        max-width: 350px;
-        max-height: 300px;
-        width: auto;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-        object-fit: contain;
-    }
+        /* Updated Image preview styles */
+        [id^="imagePreview"] {
+            max-width: 350px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
 
-    /* PDF icon styles (for PDF files) */
-    [id^="pdfIcon"] {
-        font-size: 80px;
-        color: #d9534f;
-        display: none;
-    }
+        /* PDF icon styles (for PDF files) */
+        [id^="pdfIcon"] {
+            font-size: 80px;
+            color: #d9534f;
+            display: none;
+        }
 
-    /* File preview container adjustments */
-    .file-preview {
-        margin-top: 10px;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        position: relative;
-        width: 350px;
-        height: auto;
-        margin: 10px auto;
-    }
+        /* File preview container adjustments */
+        .file-preview {
+            border: 1px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
 
-    /* Ensure the preview box and image have the same dimensions */
-    .preview-box, [id^="imagePreview"] {
-        width: 350px;
-        height: 300px;
-    }
+        .preview-box {
+            width: calc(100% - 4px);
+            height: calc(200px - 4px);
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #adb5bd;
+            border-radius: 6px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            position: relative;
+            background-clip: padding-box;
+        }
 
-    /* Ensure images maintain aspect ratio but fit within container */
-    [id^="imagePreview"] {
-        object-fit: contain;
-    }
+        /* Ensure images maintain aspect ratio but fit within container */
+        [id^="imagePreview"] {
+            object-fit: contain;
+        }
 
-    /* Updated Close button styles to target all close buttons */
-    [id^="closeButton"] {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        font-size: 20px;
-        background: transparent;
-        border: none;
-        color: rgb(0, 0, 0);
-        cursor: pointer;
-        display: none; /* Hidden initially */
-        z-index: 10; /* Ensure it's above the image */
-    }
+        /* Updated Close button styles to target all close buttons */
+        [id^="closeButton"] {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            background: transparent;
+            border: none;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            display: none;
+            /* Hidden initially */
+            z-index: 10;
+            /* Ensure it's above the image */
+        }
 
-    /* Hover effect for the close button */
-    [id^="closeButton"]:hover {
-        color: darkred;
-    }
-</style>
+        /* Hover effect for the close button */
+        [id^="closeButton"]:hover {
+            color: darkred;
+        }
+    </style>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -117,7 +132,7 @@ html >
                                 @csrf
                                 <!-- Hidden status field -->
                                 <input type="hidden" name="status" id="status" value="saved">
-                                
+
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
                                         <label for="penetapan" class="form-label"
@@ -130,19 +145,25 @@ html >
                                         @enderror
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="pendukung_penetapan" class="form-label">Pendukung Penetapan (Upload File)</label>
+                                        <label for="pendukung_penetapan" class="form-label">Pendukung Penetapan (Upload
+                                            File)</label>
                                         <div class="file-input-wrapper">
                                             <input type="file" name="pendukung_penetapan" id="pendukung_penetapan"
                                                 class="uploadButton form-control @error('pendukung_penetapan') is-invalid @enderror"
-                                                accept="image/*, application/pdf" onchange="previewFile('pendukung_penetapan')">
-                                            <label for="pendukung_penetapan" class="file-input-label">Choose a file</label>
+                                                accept="image/*, application/pdf"
+                                                onchange="previewFile('pendukung_penetapan')">
+                                            <label for="pendukung_penetapan" class="file-input-label">Choose a
+                                                file</label>
                                             <div id="filePreview1" class="file-preview">
-                                                <button type="button" id="closeButton1" onclick="removePreview('pendukung_penetapan', 1)" style="display: none;">&times;</button>
+                                                <button type="button" id="closeButton1"
+                                                    onclick="removePreview('pendukung_penetapan', 1)"
+                                                    style="display: none;">&times;</button>
                                                 <div id="previewBox1" class="preview-box">
                                                     <span id="plusSign1" class="plus-sign">+</span>
                                                 </div>
                                                 <p id="fileName1"></p>
-                                                <img id="imagePreview1" src="#" alt="Image Preview" style="display: none;">
+                                                <img id="imagePreview1" src="#" alt="Image Preview"
+                                                    style="display: none;">
                                                 <i id="pdfIcon1" class="fa fa-file-pdf-o" style="display: none;"></i>
                                             </div>
                                             @error('pendukung_penetapan')
@@ -154,7 +175,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="pelaksanaan" class="form-label">Pelaksanaan</label>
+                                        <label for="pelaksanaan" class="form-label" style="font-size: large; color: #1e293b">Pelaksanaan</label>
                                         <textarea name="pelaksanaan" id="pelaksanaan"
                                             class="form-control @error('pelaksanaan') is-invalid @enderror"
                                             placeholder="Masukkan pelaksanaan">{{ old('pelaksanaan') }}</textarea>
@@ -163,19 +184,25 @@ html >
                                         @enderror
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="pendukung_pelaksanaan" class="form-label">Pendukung Pelaksanaan (Upload File)</label>
+                                        <label for="pendukung_pelaksanaan" class="form-label">Pendukung Pelaksanaan
+                                            (Upload File)</label>
                                         <div class="file-input-wrapper">
                                             <input type="file" name="pendukung_pelaksanaan" id="pendukung_pelaksanaan"
                                                 class="uploadButton form-control @error('pendukung_pelaksanaan') is-invalid @enderror"
-                                                accept="image/*, application/pdf" onchange="previewFile('pendukung_pelaksanaan')">
-                                            <label for="pendukung_pelaksanaan" class="file-input-label">Choose a file</label>
+                                                accept="image/*, application/pdf"
+                                                onchange="previewFile('pendukung_pelaksanaan')">
+                                            <label for="pendukung_pelaksanaan" class="file-input-label">Choose a
+                                                file</label>
                                             <div id="filePreview2" class="file-preview">
-                                                <button type="button" id="closeButton2" onclick="removePreview('pendukung_pelaksanaan', 2)" style="display: none;">&times;</button>
+                                                <button type="button" id="closeButton2"
+                                                    onclick="removePreview('pendukung_pelaksanaan', 2)"
+                                                    style="display: none;">&times;</button>
                                                 <div id="previewBox2" class="preview-box">
                                                     <span id="plusSign2" class="plus-sign">+</span>
                                                 </div>
                                                 <p id="fileName2"></p>
-                                                <img id="imagePreview2" src="#" alt="Image Preview" style="display: none;">
+                                                <img id="imagePreview2" src="#" alt="Image Preview"
+                                                    style="display: none;">
                                                 <i id="pdfIcon2" class="fa fa-file-pdf-o" style="display: none;"></i>
                                             </div>
                                             @error('pendukung_pelaksanaan')
@@ -187,7 +214,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="evaluasi" class="form-label">Evaluasi</label>
+                                        <label for="evaluasi" class="form-label" style="font-size: large; color: #1e293b">Evaluasi</label>
                                         <textarea name="evaluasi" id="evaluasi"
                                             class="form-control @error('evaluasi') is-invalid @enderror"
                                             placeholder="Masukkan evaluasi">{{ old('evaluasi') }}</textarea>
@@ -196,19 +223,25 @@ html >
                                         @enderror
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="pendukung_evaluasi" class="form-label">Pendukung Evaluasi (Upload File)</label>
+                                        <label for="pendukung_evaluasi" class="form-label">Pendukung Evaluasi (Upload
+                                            File)</label>
                                         <div class="file-input-wrapper">
                                             <input type="file" name="pendukung_evaluasi" id="pendukung_evaluasi"
                                                 class="uploadButton form-control @error('pendukung_evaluasi') is-invalid @enderror"
-                                                accept="image/*, application/pdf" onchange="previewFile('pendukung_evaluasi')">
-                                            <label for="pendukung_evaluasi" class="file-input-label">Choose a file</label>
+                                                accept="image/*, application/pdf"
+                                                onchange="previewFile('pendukung_evaluasi')">
+                                            <label for="pendukung_evaluasi" class="file-input-label">Choose a
+                                                file</label>
                                             <div id="filePreview3" class="file-preview">
-                                                <button type="button" id="closeButton3" onclick="removePreview('pendukung_evaluasi', 3)" style="display: none;">&times;</button>
+                                                <button type="button" id="closeButton3"
+                                                    onclick="removePreview('pendukung_evaluasi', 3)"
+                                                    style="display: none;">&times;</button>
                                                 <div id="previewBox3" class="preview-box">
                                                     <span id="plusSign3" class="plus-sign">+</span>
                                                 </div>
                                                 <p id="fileName3"></p>
-                                                <img id="imagePreview3" src="#" alt="Image Preview" style="display: none;">
+                                                <img id="imagePreview3" src="#" alt="Image Preview"
+                                                    style="display: none;">
                                                 <i id="pdfIcon3" class="fa fa-file-pdf-o" style="display: none;"></i>
                                             </div>
                                             @error('pendukung_evaluasi')
@@ -220,7 +253,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="pengendalian" class="form-label">Pengendalian</label>
+                                        <label for="pengendalian" class="form-label" style="font-size: large; color: #1e293b">Pengendalian</label>
                                         <textarea name="pengendalian" id="pengendalian"
                                             class="form-control @error('pengendalian') is-invalid @enderror"
                                             placeholder="Masukkan pengendalian">{{ old('pengendalian') }}</textarea>
@@ -229,19 +262,25 @@ html >
                                         @enderror
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="pendukung_pengendalian" class="form-label">Pendukung Pengendalian (Upload File)</label>
+                                        <label for="pendukung_pengendalian" class="form-label">Pendukung Pengendalian
+                                            (Upload File)</label>
                                         <div class="file-input-wrapper">
                                             <input type="file" name="pendukung_pengendalian" id="pendukung_pengendalian"
                                                 class="uploadButton form-control @error('pendukung_pengendalian') is-invalid @enderror"
-                                                accept="image/*, application/pdf" onchange="previewFile('pendukung_pengendalian')">
-                                            <label for="pendukung_pengendalian" class="file-input-label">Choose a file</label>
+                                                accept="image/*, application/pdf"
+                                                onchange="previewFile('pendukung_pengendalian')">
+                                            <label for="pendukung_pengendalian" class="file-input-label">Choose a
+                                                file</label>
                                             <div id="filePreview4" class="file-preview">
-                                                <button type="button" id="closeButton4" onclick="removePreview('pendukung_pengendalian', 4)" style="display: none;">&times;</button>
+                                                <button type="button" id="closeButton4"
+                                                    onclick="removePreview('pendukung_pengendalian', 4)"
+                                                    style="display: none;">&times;</button>
                                                 <div id="previewBox4" class="preview-box">
                                                     <span id="plusSign4" class="plus-sign">+</span>
                                                 </div>
                                                 <p id="fileName4"></p>
-                                                <img id="imagePreview4" src="#" alt="Image Preview" style="display: none;">
+                                                <img id="imagePreview4" src="#" alt="Image Preview"
+                                                    style="display: none;">
                                                 <i id="pdfIcon4" class="fa fa-file-pdf-o" style="display: none;"></i>
                                             </div>
                                             @error('pendukung_pengendalian')
@@ -253,7 +292,7 @@ html >
 
                                 <div class="row">
                                     <div class="col-md-9 mb-3">
-                                        <label for="peningkatan" class="form-label">Peningkatan</label>
+                                        <label for="peningkatan" class="form-label" style="font-size: large; color: #1e293b">Peningkatan</label>
                                         <textarea name="peningkatan" id="peningkatan" rows="3"
                                             class="form-control @error('peningkatan') is-invalid @enderror"
                                             placeholder="Masukkan peningkatan">{{ old('peningkatan') }}</textarea>
@@ -262,19 +301,25 @@ html >
                                         @enderror
                                     </div>
                                     <div class="col-md-3 mb-3">
-                                        <label for="pendukung_peningkatan" class="form-label">Pendukung Peningkatan (Upload File)</label>
+                                        <label for="pendukung_peningkatan" class="form-label">Pendukung Peningkatan
+                                            (Upload File)</label>
                                         <div class="file-input-wrapper">
                                             <input type="file" name="pendukung_peningkatan" id="pendukung_peningkatan"
                                                 class="uploadButton form-control @error('pendukung_peningkatan') is-invalid @enderror"
-                                                accept="image/*, application/pdf" onchange="previewFile('pendukung_peningkatan')">
-                                            <label for="pendukung_peningkatan" class="file-input-label">Choose a file</label>
+                                                accept="image/*, application/pdf"
+                                                onchange="previewFile('pendukung_peningkatan')">
+                                            <label for="pendukung_peningkatan" class="file-input-label">Choose a
+                                                file</label>
                                             <div id="filePreview5" class="file-preview">
-                                                <button type="button" id="closeButton5" onclick="removePreview('pendukung_peningkatan', 5)" style="display: none;">&times;</button>
+                                                <button type="button" id="closeButton5"
+                                                    onclick="removePreview('pendukung_peningkatan', 5)"
+                                                    style="display: none;">&times;</button>
                                                 <div id="previewBox5" class="preview-box">
                                                     <span id="plusSign5" class="plus-sign">+</span>
                                                 </div>
                                                 <p id="fileName5"></p>
-                                                <img id="imagePreview5" src="#" alt="Image Preview" style="display: none;">
+                                                <img id="imagePreview5" src="#" alt="Image Preview"
+                                                    style="display: none;">
                                                 <i id="pdfIcon5" class="fa fa-file-pdf-o" style="display: none;"></i>
                                             </div>
                                             @error('pendukung_peningkatan')
@@ -285,11 +330,13 @@ html >
                                 </div>
 
                                 <div class="mt-4 text-end">
-    <button type="submit" name="status" value="save" class="btn btn-secondary px-4 me-2">Save</button>
-    <button type="submit" name="status" value="submitted" class="btn btn-primary px-4">Submit</button>
-    <button type="reset" class="btn btn-warning px-4 me-2">Reset</button>
-    <a href="{{ route('kriteria.index') }}" class="btn btn-danger px-4">Cancel</a>
-</div>
+                                    <button type="submit" name="status" value="save"
+                                        class="btn btn-secondary px-4 me-2">Save</button>
+                                    <button type="submit" name="status" value="submitted"
+                                        class="btn btn-primary px-4">Submit</button>
+                                    <button type="reset" class="btn btn-warning px-4 me-2">Reset</button>
+                                    <a href="{{ route('kriteria.index') }}" class="btn btn-danger px-4">Cancel</a>
+                                </div>
 
                             </form>
                         </div>
@@ -313,11 +360,11 @@ html >
             }
         </script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.1/tinymce.min.js"
+        <script src="https://cdn.tiny.cloud/1/0cmexsvcbzeoisdx6f3iv5ktdr2p1ri5zx41b7ilmogth0ng/tinymce/7/tinymce.min.js"
             referrerpolicy="origin"></script>
         <script>
             tinymce.init({
-                selector: 'textarea#penetapan, textarea#pelaksanaan, textarea#evaluasi, textarea#pengendalian, textarea#peningkatan', 
+                selector: 'textarea#penetapan, textarea#pelaksanaan, textarea#evaluasi, textarea#pengendalian, textarea#peningkatan',
                 plugins: 'table lists link image',
                 toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright | indent outdent | link | bullist numlist | table | image',
                 branding: false
@@ -332,34 +379,34 @@ html >
                 document.getElementById('status').value = statusValue;
                 document.querySelector('form').submit();
             }
-            
+
             // Updated previewFile function to handle multiple file inputs
             function previewFile(inputId) {
                 var fileInput = document.getElementById(inputId);
                 var file = fileInput.files[0];
                 var index = '';
-                
+
                 // Determine which file input is being used and set the index
                 if (inputId === 'pendukung_penetapan') index = '1';
                 else if (inputId === 'pendukung_pelaksanaan') index = '2';
                 else if (inputId === 'pendukung_evaluasi') index = '3';
                 else if (inputId === 'pendukung_pengendalian') index = '4';
                 else if (inputId === 'pendukung_peningkatan') index = '5';
-                
+
                 var previewBox = document.getElementById('previewBox' + index);
                 var plusSign = document.getElementById('plusSign' + index);
                 var fileName = document.getElementById('fileName' + index);
                 var imagePreviewEl = document.getElementById('imagePreview' + index);
                 var pdfIcon = document.getElementById('pdfIcon' + index);
                 var closeButton = document.getElementById('closeButton' + index);
-                
+
                 // Show file name
                 fileName.textContent = file.name;
-                
+
                 // Show preview for images
                 if (file.type.startsWith('image/')) {
                     var reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const event = e;
                         const size = 'auto';
                         const margin = '0 auto';
@@ -396,26 +443,26 @@ html >
                 var imagePreviewEl = document.getElementById('imagePreview' + index);
                 var pdfIcon = document.getElementById('pdfIcon' + index);
                 var closeButton = document.getElementById('closeButton' + index);
-                
+
                 // Reset the preview area
                 imagePreviewEl.style.display = 'none';
                 pdfIcon.style.display = 'none';
                 fileName.textContent = '';
-                
+
                 // Show the plus sign and dashed box again
                 previewBox.style.display = 'flex';
                 plusSign.style.opacity = 1;
-                
+
                 // Hide the close button
                 closeButton.style.display = 'none';
-                
+
                 // Reset the file input
                 fileInput.value = '';
             }
 
             function resetForm() {
-    location.reload(); // ini akan me-refresh halaman dan otomatis menghapus isian
-}
+                location.reload(); // ini akan me-refresh halaman dan otomatis menghapus isian
+            }
 
 
         </script>

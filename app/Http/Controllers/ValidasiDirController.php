@@ -9,6 +9,7 @@ use App\Models\PengisianModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Models\DetailKriteriaModel;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class ValidasiDirController extends Controller
@@ -20,28 +21,31 @@ class ValidasiDirController extends Controller
     }
 
     public function list(Request $request)
-    {
-        $pengisian = PengisianModel::with([
-            'detailKriteria' => function ($q) {
-                $q->whereIn('status', ['submitted', 'revisi']);
-            }
-        ])
-            ->select('id_pengisian', 'nama_pengisian', 'created_at');
+{
+    $pengisian = PengisianModel::select('pengisian.id_pengisian', 'pengisian.nama_pengisian', 'pengisian.created_at')
+        ->join('detail_kriteria', function($join) {
+            $join->on('pengisian.id_pengisian', '=', 'detail_kriteria.id_pengisian')
+                 ->where('detail_kriteria.status', ['acc1','acc2']);
+        })
+        ->groupBy('pengisian.id_pengisian', 'pengisian.nama_pengisian', 'pengisian.created_at')
+        ->havingRaw('COUNT(DISTINCT detail_kriteria.id_kriteria) = 9');
 
-        return DataTables::of($pengisian)
-            ->addIndexColumn()
-            ->addColumn('tanggal', function ($row) {
-                return $row->created_at ? $row->created_at->format('Y-m-d') : '-';
-            })
-            ->addColumn('status', function ($row) {
-                return $row->detailKriteria->pluck('status')->unique()->implode(', ') ?: '-';
-            })
-            ->addColumn('id_pengisian', function ($row) {
-                return $row->id_pengisian;
-            })
-            ->rawColumns(['status'])
-            ->make(true);
-    }
+    return DataTables::of($pengisian)
+        ->addIndexColumn()
+        ->addColumn('tanggal', function ($row) {
+            return $row->created_at ? $row->created_at->format('Y-m-d') : '-';
+        })
+        ->addColumn('status', function ($row) {
+            // Sudah valid by havingRaw
+            return 'acc1 (9 kriteria)';
+        })
+        ->addColumn('id_pengisian', function ($row) {
+            return $row->id_pengisian;
+        })
+        ->rawColumns(['status'])
+        ->make(true);
+}
+
 
     public function show(Request $request)
     {
@@ -72,32 +76,89 @@ class ValidasiDirController extends Controller
         ]);
     }
 
-    public function generatePdfDetailKriteriaBatch($id_pengisian)
-    {
-        $details = DetailKriteriaModel::with([
-            'kriteria',
-            'komentar',
-            'penetapan',
-            'pelaksanaan',
-            'evaluasi',
-            'pengendalian',
-            'peningkatan',
-        ])
-            ->where('id_pengisian', $id_pengisian)
-            ->orderBy('id_kriteria')
-            ->get();
+     private function fileUrl($path)
+{
+    if (!$path) return null;
+    return asset('storage/'.str_replace('public/', '', $path));
+}
 
-        if ($details->isEmpty()) {
-            abort(404, "Data detail kriteria untuk batch dengan ID $id_pengisian tidak ditemukan.");
+    // Untuk preview pdf, gunakan fileUrl untuk menampilkan gambar
+   private function convertImagePathToBase64($path)
+{
+    if (!$path) {
+        Log::warning('convertImagePathToBase64: Path kosong.');
+        return '';
+    }
+
+    try {
+        $relativePath = str_replace('public/', '', $path);
+        $fullPath = storage_path('app/public/' . $relativePath);
+
+        if (!file_exists($fullPath)) {
+            Log::error('convertImagePathToBase64: File tidak ditemukan - ' . $fullPath);
+            return '';
         }
 
-        $batch = PengisianModel::find($id_pengisian);
+        // Cek ekstensi yang aman untuk DomPDF
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $extension = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
 
-        $pdf = PDF::loadView('validasiDirektur.pdf', compact('batch', 'details'))
-            ->setPaper('a4', 'portrait');
+        if (!in_array($extension, $allowedExtensions)) {
+            Log::error("convertImagePathToBase64: File extension .$extension tidak didukung DomPDF.");
+            return '';
+        }
 
-        return $pdf->stream("Detail_Kriteria_Batch_{$batch->nama_pengisian}.pdf");
+        // Encode + chunk supaya DomPDF tidak error pada gambar besar
+        $data = base64_encode(file_get_contents($fullPath));
+        $chunkedData = chunk_split($data);
+
+        Log::info('convertImagePathToBase64: Success untuk file - ' . $fullPath);
+
+        return '<img src="data:image/' . $extension . ';base64,' . $chunkedData . '" style="max-width:300px; max-height:300px;" />';
+    } catch (\Exception $e) {
+        Log::error('convertImagePathToBase64: Exception - ' . $e->getMessage());
+        return '';
     }
+}
+
+
+    public function generatePdfDetailKriteriaBatch($id_pengisian)
+{
+    $details = DetailKriteriaModel::with([
+        'kriteria',
+        'komentar',
+        'penetapan',
+        'pelaksanaan',
+        'evaluasi',
+        'pengendalian',
+        'peningkatan',
+    ])
+        ->where('id_pengisian', $id_pengisian)
+        ->orderBy('id_kriteria')
+        ->get();
+
+    if ($details->isEmpty()) {
+        abort(404, "Data detail kriteria untuk batch dengan ID $id_pengisian tidak ditemukan.");
+    }
+
+    $batch = PengisianModel::find($id_pengisian);
+
+    // --- ✨ Tambahkan gambar sebagai Base64 ---
+    foreach ($details as $detail) {
+        $detail->penetapan_image = $this->convertImagePathToBase64(optional($detail->penetapan)->pendukung);
+        $detail->pelaksanaan_image = $this->convertImagePathToBase64(optional($detail->pelaksanaan)->pendukung);
+        $detail->evaluasi_image = $this->convertImagePathToBase64(optional($detail->evaluasi)->pendukung);
+        $detail->pengendalian_image = $this->convertImagePathToBase64(optional($detail->pengendalian)->pendukung);
+        $detail->peningkatan_image = $this->convertImagePathToBase64(optional($detail->peningkatan)->pendukung);
+    }
+
+    // --- Generate PDF ---
+    $pdf = PDF::loadView('validasiDirektur.pdf', compact('batch', 'details'))
+        ->setPaper('a4', 'portrait');
+
+    return $pdf->stream("Detail_Kriteria_Batch_{$batch->nama_pengisian}.pdf");
+}
+
 
     public function update(Request $request)
     {
@@ -121,44 +182,46 @@ class ValidasiDirController extends Controller
             $details = DetailKriteriaModel::where('id_pengisian', $id_pengisian)->get();
 
             foreach ($details as $detail) {
-                if ($status === 'acc') {
-                    $detail->status = 'acc2'; // status diterima
-                    // Hapus komentar jika ada
-                    if ($detail->komentar) {
-                        $detail->komentar()->delete();
-                        $detail->id_komentar = null;
-                    }
-                } elseif ($status === 'revisi') {
-                    if (in_array($detail->id_detail_kriteria, $detailRevisi)) {
-                        $detail->status = 'revisi';
+    if ($status === 'acc') {
+        $detail->status = 'acc2'; // semua acc
+        // Hapus komentar jika ada
+        if ($detail->komentar) {
+            $detail->komentar()->delete();
+            $detail->id_komentar = null;
+        }
+    } elseif ($status === 'revisi') {
+        if (in_array($detail->id_detail_kriteria, $detailRevisi)) {
+            $detail->status = 'revisi';
 
-                        $komen = $catatanKriteria[$detail->id_detail_kriteria] ?? null;
-                        if ($komen !== null) {
-                            if ($detail->id_komentar) {
-                                // Update komentar yang sudah ada, sekaligus update id_kriteria
-                                $detail->komentar()->update([
-                                    'komen' => $komen,
-                                    'id_kriteria' => $detail->id_kriteria
-                                ]);
-                            } else {
-                                // Buat komentar baru dengan komen dan id_kriteria
-                                $komentar = KomentarModel::create([
-                                    'komen' => $komen,
-                                    'id_kriteria' => $detail->id_kriteria
-                                ]);
-                                $detail->id_komentar = $komentar->id_komentar;
-                            }
-                        }
-                    } else {
-                        $detail->status = 'acc2'; // selain kriteria revisi dianggap acc
-                        if ($detail->komentar) {
-                            $detail->komentar()->delete();
-                            $detail->id_komentar = null;
-                        }
-                    }
+            $komen = $catatanKriteria[$detail->id_detail_kriteria] ?? null;
+            if ($komen !== null) {
+                if ($detail->id_komentar) {
+                    // Update komentar yang sudah ada
+                    $detail->komentar()->update([
+                        'komen' => $komen,
+                        'id_kriteria' => $detail->id_kriteria
+                    ]);
+                } else {
+                    // Buat komentar baru
+                    $komentar = KomentarModel::create([
+                        'komen' => $komen,
+                        'id_kriteria' => $detail->id_kriteria
+                    ]);
+                    $detail->id_komentar = $komentar->id_komentar;
                 }
-                $detail->save();
             }
+        } else {
+            // Yang tidak direvisi → status dibiarkan (tidak dipaksa ke acc2)
+            if ($detail->komentar) {
+                $detail->komentar()->delete();
+                $detail->id_komentar = null;
+            }
+            // $detail->status tidak diubah
+        }
+    }
+    $detail->save();
+}
+
 
             DB::commit();
             return response()->json(['success' => true, 'message' => 'Validasi berhasil disimpan']);
