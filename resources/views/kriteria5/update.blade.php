@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/polinema_logo.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/kriteria.css') }}">
-    <title>Corporate UI by Creative Tim</title>
+    <title>KRITERIA 5 - UPDATE</title>
 
     <!-- Fonts and icons -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700" rel="stylesheet" />
@@ -39,23 +39,35 @@
         }
 
         .file-preview {
-            margin-top: 10px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-            width: 350px;
-            height: auto;
-            margin: 10px auto;
-        }
+    border: 1px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    box-sizing: border-box; 
+    overflow: hidden; 
+}
 
-        .preview-box,
-        [id^="imagePreview"] {
-            width: 350px;
-            height: 300px;
-        }
+.preview-box {
+    width: 100%;
+    height: 200px;
+    max-width: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #adb5bd;
+    border-radius: 6px;
+    margin: 0 auto;
+    box-sizing: border-box; 
+}
 
         [id^="imagePreview"] {
             object-fit: contain;

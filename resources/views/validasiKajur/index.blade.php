@@ -148,47 +148,6 @@
             font-size: 0.96rem;
         }
 
-        .dataTables_wrapper .dataTables_paginate {
-            margin-top: 0.3rem;
-            display: flex;
-            justify-content: center !important;
-            align-items: center;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            border-radius: 5px;
-            margin: 0 1px;
-            font-weight: 500;
-            border: none;
-            background: #f8f9fa;
-            color: #5e72e4 !important;
-            transition: background 0.2s, color 0.2s;
-            padding: 0.18em 0.7em;
-            font-size: 0.92rem;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-            background: #5e72e4 !important;
-            color: #fff !important;
-            box-shadow: 0 2px 8px rgba(94, 114, 228, 0.08);
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background: #e9ecef;
-            color: #5e72e4 !important;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
-            background: #f8f9fa !important;
-            color: #bbb !important;
-            cursor: not-allowed !important;
-        }
-
-        .hide-pagination .dataTables_paginate {
-            display: none !important;
-        }
     </style>
 </head>
 
@@ -224,6 +183,7 @@
                                             <th>No</th>
                                             <th>Nama Kriteria</th>
                                             <th>Tanggal</th>
+                                            <th>Batch</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -249,175 +209,177 @@
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var table = $('#table_detail_kriteria').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{ route('validasikjr.list') }}',
-                order: [
-                    [2, 'desc']
-                ],
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'nama_kriteria',
-                        name: 'kriteria.nama_kriteria'
-                    },
-                    {
-                        data: {
-                            '_': 'tanggal.display',
-                            'sort': 'tanggal.timestamp'
-                        },
-                        name: 'detail_kriteria.created_at',
-                        type: 'num'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        render: function(data) {
-                            if (data === 'submitted') {
-                                return '<span class="badge-status-submitted">' + data + '</span>';
-                            } else if (data === 'revisi') {
-                                return '<span class="badge-status-revisi">' + data + '</span>';
-                            } else if (data === 'acc1') {
-                                return '<span class="badge-status-acc1">' + data + '</span>';
-                            } else {
-                                return '<span class="badge-status-default">' + data + '</span>';
-                            }
-                        }
-                    },
-                    {
-                        data: null,
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row) {
-                            if (data.status === 'acc1') {
-                                return '';
-                            } else {
-                                return '<button class="btn-validasi btn-detail" data-id="' + row
-                                    .id_detail_kriteria + '">Validasi</button>';
-                            }
-                        }
-                    }
-                ],
-                language: {
-                    paginate: {
-                        previous: "<i class='fas fa-chevron-left'></i>",
-                        next: "<i class='fas fa-chevron-right'></i>"
-                    },
-                    lengthMenu: "Show _MENU_ entries",
-                    search: "Search:"
-                },
-                drawCallback: function(settings) {
-                    var api = this.api();
-                    var pages = api.page.info().pages;
-                    if (pages <= 1) {
-                        $(api.table().container()).addClass('hide-pagination');
+$(document).ready(function() {
+    var table = $('#table_detail_kriteria').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('validasikjr.list') }}',
+        
+        order: [
+            [6, 'asc'], // urut kriteria_id ASC
+            [7, 'asc']  // urut batch ASC
+        ],
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'nama_kriteria', name: 'kriteria.nama_kriteria' },
+            { 
+                data: { '_': 'tanggal.display', 'sort': 'tanggal.timestamp' },
+                name: 'detail_kriteria.created_at',
+                type: 'num'
+            },
+            { 
+                data: 'id_pengisian',
+                className: 'text-center align-middle',
+                width: '10%',
+                render: function (data) {
+                    return data ? `<span class="text-xs font-weight-bold">${data}</span>` : `<span class="text-muted text-xs">-</span>`;
+                }
+            },
+            { 
+                data: 'status',
+                name: 'status',
+                render: function(data) {
+                    if (data === 'submitted') {
+                        return '<span class="badge-status-submitted">' + data + '</span>';
+                    } else if (data === 'revisi') {
+                        return '<span class="badge-status-revisi">' + data + '</span>';
+                    } else if (data === 'acc1') {
+                        return '<span class="badge-status-acc1">' + data + '</span>';
                     } else {
-                        $(api.table().container()).removeClass('hide-pagination');
+                        return '<span class="badge-status-default">' + data + '</span>';
                     }
                 }
-            });
+            },
+            { 
+                data: null,
+                orderable: false,
+                searchable: false,
+                render: function(data, type, row) {
+                    if (data.status === 'acc1') {
+                        return '';
+                    } else {
+                        return '<button class="btn-validasi btn-detail" data-id="' + row.id_detail_kriteria + '">Validasi</button>';
+                    }
+                }
+            },
+            // Kolom hidden untuk sorting kriteria_id
+            { data: 'id_kriteria', name: 'id_kriteria', visible: false },
+            // Kolom hidden untuk sorting batch
+            { data: 'batch', name: 'batch', visible: false }
+        ],
+        language: {
+            lengthMenu: "Show _MENU_ entries",
+            search: "Search:"
+        },
+        drawCallback: function(settings) {
+            var api = this.api();
+            var pages = api.page.info().pages;
+            if (pages <= 1) {
+                $(api.table().container()).addClass('hide-pagination');
+            } else {
+                $(api.table().container()).removeClass('hide-pagination');
+            }
+        }
+    });
 
-            $('#table_detail_kriteria').on('click', '.btn-detail', function() {
-                var id = $(this).data('id');
-                $('#modal-container').html('');
-                $.get("{{ url('validasi') }}/" + id + "/detail-modal", function(html) {
-                    $('#modal-container').html(html);
+    // Button Detail
+    $('#table_detail_kriteria').on('click', '.btn-detail', function() {
+        var id = $(this).data('id');
+        $('#modal-container').html('');
+        $.get("{{ url('validasi') }}/" + id + "/detail-modal", function(html) {
+            $('#modal-container').html(html);
+            var modalElement = document.getElementById('modal-master');
+            if (modalElement) {
+                var modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            } else {
+                alert('Gagal menginisialisasi modal.');
+            }
+        }).fail(function(xhr) {
+            let errorMsg = 'Gagal memuat detail validasi.';
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                errorMsg = xhr.responseJSON.message;
+            } else if (xhr.responseText) {
+                console.error("Error loading modal content:", xhr.responseText);
+            }
+            alert(errorMsg);
+        });
+    });
+
+    // Simpan Validasi
+    $(document).on('click', '#btn-simpan-validasi', function() {
+        let id = $('#form-validasi').data('id');
+        let status = $('input[name="status_validasi"]:checked').val();
+        let comment = $('#catatan').val();
+
+        if (!status) {
+            alert('Mohon pilih status validasi (Diterima/Revisi).');
+            return;
+        }
+
+        $.ajax({
+            url: '{{ route('validasikjr.submit') }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id_detail_kriteria: id,
+                action: status,
+                comment: comment
+            },
+            success: function(response) {
+                if (response.success) {
                     var modalElement = document.getElementById('modal-master');
                     if (modalElement) {
-                        var modal = new bootstrap.Modal(modalElement);
-                        modal.show();
-                    } else {
-                        alert('Gagal menginisialisasi modal.');
-                    }
-                }).fail(function(xhr) {
-                    let errorMsg = 'Gagal memuat detail validasi.';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMsg = xhr.responseJSON.message;
-                    } else if (xhr.responseText) {
-                        console.error("Error loading modal content:", xhr.responseText);
-                    }
-                    alert(errorMsg);
-                });
-            });
-
-            $(document).on('click', '#btn-simpan-validasi', function() {
-                let id = $('#form-validasi').data('id');
-                let status = $('input[name="status_validasi"]:checked').val();
-                let comment = $('#catatan').val();
-
-                if (!status) {
-                    alert('Mohon pilih status validasi (Diterima/Revisi).');
-                    return;
-                }
-
-                $.ajax({
-                    url: '{{ route('validasikjr.submit') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        id_detail_kriteria: id,
-                        action: status,
-                        comment: comment
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            var modalElement = document.getElementById('modal-master');
-                            if (modalElement) {
-                                var modalInstance = bootstrap.Modal.getInstance(modalElement);
-                                if (modalInstance) {
-                                    modalInstance.hide();
-                                }
-                            }
-                            table.ajax.reload(null, false);
-                        } else {
-                            alert(response.message ||
-                                'Gagal menyimpan validasi. Silakan coba lagi.');
+                        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+                        if (modalInstance) {
+                            modalInstance.hide();
                         }
-                    },
-                    error: function(xhr, ajaxStatus, thrownError) {
-                        let errorMessage = 'Terjadi kesalahan saat menyimpan!\n';
-                        if (xhr.responseJSON) {
-                            if (xhr.responseJSON.message) {
-                                errorMessage += 'Server: ' + xhr.responseJSON.message + '\n';
-                            }
-                            if (xhr.responseJSON.errors) {
-                                for (const key in xhr.responseJSON.errors) {
-                                    errorMessage += key + ': ' + xhr.responseJSON.errors[key]
-                                        .join(', ') + '\n';
-                                }
-                            }
-                        } else if (xhr.responseText) {
-                            console.error("Error loading modal content:", xhr.responseText);
-                        } else {
-                            errorMessage += 'Status: ' + ajaxStatus + ', Error: ' + thrownError;
-                        }
-                        alert(errorMessage);
-                        console.error("XHR Object:", xhr);
                     }
-                });
-            });
-
-            $(document).on('click', '#modal-master #btn-batal', function() {
-                var modalElement = document.getElementById('modal-master');
-                if (modalElement) {
-                    var modalInstance = bootstrap.Modal.getInstance(modalElement);
-                    if (modalInstance) {
-                        modalInstance.hide();
-                    }
+                    table.ajax.reload(null, false);
+                } else {
+                    alert(response.message || 'Gagal menyimpan validasi. Silakan coba lagi.');
                 }
-            });
-
-            $(document).on('hidden.bs.modal', '#modal-master', function() {
-                $(this).remove();
-            });
+            },
+            error: function(xhr, ajaxStatus, thrownError) {
+                let errorMessage = 'Terjadi kesalahan saat menyimpan!\n';
+                if (xhr.responseJSON) {
+                    if (xhr.responseJSON.message) {
+                        errorMessage += 'Server: ' + xhr.responseJSON.message + '\n';
+                    }
+                    if (xhr.responseJSON.errors) {
+                        for (const key in xhr.responseJSON.errors) {
+                            errorMessage += key + ': ' + xhr.responseJSON.errors[key].join(', ') + '\n';
+                        }
+                    }
+                } else if (xhr.responseText) {
+                    console.error("Error loading modal content:", xhr.responseText);
+                } else {
+                    errorMessage += 'Status: ' + ajaxStatus + ', Error: ' + thrownError;
+                }
+                alert(errorMessage);
+                console.error("XHR Object:", xhr);
+            }
         });
-    </script>
+    });
+
+    // Button Batal
+    $(document).on('click', '#modal-master #btn-batal', function() {
+        var modalElement = document.getElementById('modal-master');
+        if (modalElement) {
+            var modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
+    });
+
+    // Modal cleanup
+    $(document).on('hidden.bs.modal', '#modal-master', function() {
+        $(this).remove();
+    });
+});
+</script>
+
 </body>
 
 </html>

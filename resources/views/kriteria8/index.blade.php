@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/img/polinema_logo.png" />
+    <title>KRITERIA 8 - INDEX</title>
 
     <!-- Fonts and icons -->
     <link
@@ -88,18 +89,11 @@
                                     id="table_detail_kriteria" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
-                                                width="10%">ID</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
-                                                width="40%">Nama Kriteria</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center"
-                                                width="20%">Status</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center"
-                                                width="30%">Aksi</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" width="10%">ID</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" width="40%">Nama Kriteria</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center" width="20%">Status</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center" width="20%">Batch</th> <!-- Tambahkan ini -->
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center" width="30%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -359,6 +353,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     },
                     {
+                        data: "id_pengisian",
+                        className: "text-center align-middle",
+                        width: "10%",
+                        render: function (data) {
+                            return data ? `<span class="text-xs font-weight-bold">${data}</span>` : `<span class="text-muted text-xs">-</span>`;
+                        }
+                    },
+                    {
                         data: "aksi",
                         className: "text-center align-middle",
                         orderable: false,
@@ -392,6 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 ],
+                order: [[3, 'asc']],
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/id.json",
                     info: "_TOTAL_ data",

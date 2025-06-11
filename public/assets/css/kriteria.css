@@ -1,182 +1,230 @@
+/* Table styling */
 #table_detail_kriteria {
-            table-layout: fixed;
-            width: 100%;
-        }
-        
-        #table_detail_kriteria th,
-        #table_detail_kriteria td {
-            vertical-align: middle;
-            padding: 12px 15px;
-        }
-        
-        #table_detail_kriteria th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-        }
-        
-        /* Improved badge styling */
-        .status-badge {
-            display: inline-block;
-            min-width: 10px;
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: xx-small;
-            font-weight: 500;
-            text-align: center;
-            white-space: nowrap;
-            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-        
-        /* Text truncation for long criteria names */
-        .text-truncate-cell {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 0;
-        }
-        
-        /* Button group styling */
-        .btn-action-group .btn {
-            padding: 0.35rem 0.5rem;
-            font-size: 0.75rem;
-            margin: 0 2px;
-        }
-/* Styling for file input wrapper */
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#table_detail_kriteria th,
+#table_detail_kriteria td {
+    vertical-align: middle;
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+}
+
+#table_detail_kriteria th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Improved badge styling */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Text truncation for long criteria names */
+.text-truncate-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+/* Button group styling */
+.btn-action-group .btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+/* File upload section - improved */
 .file-input-wrapper {
     position: relative;
-    overflow: hidden;
     width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible; /* Pastikan konten file input tidak terpotong */
 }
 
-/* Styling for the actual file input field */
-.file-input-wrapper input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-
-/* Styling for the file input label button */
 .file-input-label {
-    display: inline-block;
-    padding: 10px 15px;
+    display: block;
+    padding: 0.75rem 1rem;
     background-color: #0f172a;
     color: white;
-    font-size: 16px;
-    border-radius: 5px;
+    border-radius: 6px;
+    text-align: center;
     cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
     width: 100%;
-    text-align: center;
-    transition: background-color 0.3s ease;
+    box-sizing: border-box; /* Pastikan label menyesuaikan lebar kontainer */
 }
 
-/* Hover effect for file input label */
 .file-input-label:hover {
-    background-color: #0056b3;
+    background-color: #3b291e;
 }
 
-/* Styles for the preview area */
+.uploadButton {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Memastikan elemen input dapat diklik */
+}
+
+/* File preview area */
 .file-preview {
+    border: 1px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
     margin-top: 10px;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     position: relative;
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+    overflow: hidden; /* Diubah dari visible ke hidden */
 }
 
-/* Dashed border box for file preview */
 .preview-box {
-    width: 350px;
-    height: 300px;
-    border: 2px dashed #0f172a;
-    border-radius: 10px;
+    width: calc(100% - 4px); /* Mengkompensasi border */
+    height: calc(200px - 4px); /* Mengkompensasi border */
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    transition: opacity 0.3s ease;
+    border: 2px dashed #adb5bd;
+    border-radius: 6px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    background-clip: padding-box; /* Memastikan border tidak terpotong */
 }
 
-/* Plus sign in the center of the dashed box */
 .plus-sign {
-    font-size: 40px;
-    color: #094d96;
-    opacity: 1;
+    font-size: 2.5rem;
+    color: #adb5bd;
 }
 
-/* Image preview styles */
-#imagePreview {
+/* Image preview */
+[id^="imagePreview"] {
     max-width: 100%;
-    max-height: 200px;
+    max-height: 250px;
+    height: auto;
     display: block;
-    margin-top: 10px;
+    margin: 0 auto;
+    object-fit: contain;
 }
 
-/* PDF icon styles (for PDF files) */
-#pdfIcon {
-    font-size: 50px;
+/* PDF icon */
+[id^="pdfIcon"] {
+    font-size: 3.5rem;
     color: #d9534f;
     display: none;
 }
 
-/* File name text style */
-#fileName {
-    font-size: 14px;
-    color: #333;
+/* File name */
+[id^="fileName"] {
     margin-top: 10px;
+    word-break: break-word;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #495057;
+    width: 100%;
+    max-width: 350px;
+    white-space: normal;
 }
 
-/* Close (x) button to remove preview */
-#closeButton {
+/* Close button */
+[id^="closeButton"] {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 20px;
-    background: transparent;
+    top: 8px;
+    right: 8px;
+    font-size: 1.25rem;
+    background: rgba(255, 255, 255, 0.8);
     border: none;
-    color: rgb(0, 0, 0);
+    color: #495057;
     cursor: pointer;
-    display: none; /* Hidden initially */
+    display: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Hover effect for the close button */
-#closeButton:hover {
-    color: darkred;
+[id^="closeButton"]:hover {
+    color: #dc3545;
+    background: rgba(255, 255, 255, 0.9);
 }
 
-/* Additional styling for form fields */
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    #table_detail_kriteria {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .preview-box {
+        height: 150px;
+        max-width: 100%; /* Agar preview box menyesuaikan lebar layar */
+    }
+
+    /* Mengurangi ukuran padding dan font agar lebih cocok untuk layar kecil */
+    .file-input-label {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .col-md-3, .col-md-9 {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /* Mengatur gambar agar tidak meluber */
+    .file-preview img {
+        max-width: 100%;
+        max-height: 200px;
+    }
+}
+
+/* Form styling improvements */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
-.col-md-9,
-.col-md-3 {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 .form-control {
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
 textarea.form-control {
-    height: 150px;
+    min-height: 150px;
+    resize: vertical;
 }
-
-/* Tambahkan di assets/css/kriteria.css */
-/* Untuk semua badge primary */
-
-

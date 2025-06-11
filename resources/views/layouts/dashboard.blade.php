@@ -17,9 +17,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="assets/img/polinema_logo.png">
     <title>
-        Corporate UI by Creative Tim
+        DASHBOARD AKREDITASI
     </title>
     <!--     Fonts and icons     -->
     <link
@@ -130,18 +130,18 @@
                                         <div
                                             class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                                             <div class="full-background bg-cover"
-                                                style="background-image: url('assets/img/img-2.jpg')"></div>
+                                                style="background-image: url('assets/img/VMTS.jpg')"></div>
                                             <div class="card-body text-start px-3 py-0 w-100">
                                                 <div class="row mt-12">
                                                     <div class="col-sm-3 mt-auto">
-                                                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">
+                                                        <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">
                                                             Name</p>
-                                                        <h5 class="text-dark font-weight-bolder">VMTS</h5>
+                                                        <h5 class="text-white font-weight-bolder">VMTS</h5>
                                                     </div>
                                                     <div class="col-sm-3 ms-auto mt-auto">
-                                                        <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">
+                                                        <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">
                                                             Kriteria</p>
-                                                        <h5 class="text-dark font-weight-bolder">1</h5>
+                                                        <h5 class="text-white font-weight-bolder">1</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,10 +150,12 @@
                                 </div>
                             </div>
                             <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria2.index') }}">
                                 <div
                                     class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                                     <div class="full-background bg-cover"
-                                        style="background-image: url('assets/img/img-1.jpg')"></div>
+                                        style="background-image: url('assets/img/TataKelola.webp')"></div>
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
@@ -168,38 +170,45 @@
                                         </div>
                                     </div>
                                 </div>
+                                    </a>
+                                </div>
                             </div>
                             <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria3.index') }}">
                                 <div
                                     class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                                     <div class="full-background bg-cover"
-                                        style="background-image: url('assets/img/img-3.jpg')"></div>
+                                        style="background-image: url('assets/img/MHS.jpg')"></div>
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
-                                                <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                                                <h5 class="text-dark font-weight-bolder">Mahasiswa</h5>
+                                                <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                                                <h5 class="text-white font-weight-bolder">Mahasiswa</h5>
                                             </div>
                                             <div class="col-sm-3 ms-auto mt-auto">
-                                                <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Kategori
+                                                <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">Kategori
                                                 </p>
-                                                <h5 class="text-dark font-weight-bolder">3</h5>
+                                                <h5 class="text-white font-weight-bolder">3</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                    </a>
+                                </div>
                             </div>
                             <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria4.index') }}">
                                 <div
                                     class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                                     <div class="full-background bg-cover"
-                                        style="background-image: url('assets/img/img-4.jpg')"></div>
+                                        style="background-image: url('assets/img/SDM.jpg')"></div>
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                                                <h5 class="text-dark font-weight-bolder">Keuangan, Sarana, dan
-                                                    Prasarana</h5>
+                                                <h5 class="text-dark font-weight-bolder">SDM</h5>
                                             </div>
                                             <div class="col-sm-3 ms-auto mt-auto">
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Kategori
@@ -209,12 +218,41 @@
                                         </div>
                                     </div>
                                 </div>
+                                    </a>
+                                </div>
                             </div>
                             <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria5.index') }}">
                                 <div
                                     class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                                     <div class="full-background bg-cover"
-                                        style="background-image: url('assets/img/img-5.jpg')"></div>
+                                        style="background-image: url('assets/img/KSPS.png')"></div>
+                                    <div class="card-body text-start px-3 py-0 w-100">
+                                        <div class="row mt-12">
+                                            <div class="col-sm-3 mt-auto">
+                                                <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                                                <h5 class="text-white font-weight-bolder">Keuangan, Sarana, dan
+                                                    Prasarana</h5>
+                                            </div>
+                                            <div class="col-sm-3 ms-auto mt-auto">
+                                                <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">Category
+                                                </p>
+                                                <h5 class="text-white font-weight-bolder">5</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria6.index') }}">
+                                <div
+                                    class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                                    <div class="full-background bg-cover"
+                                        style="background-image: url('assets/img/PENDIDIKAN.jpg')"></div>
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
@@ -224,33 +262,86 @@
                                             <div class="col-sm-3 ms-auto mt-auto">
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category
                                                 </p>
-                                                <h5 class="text-dark font-weight-bolder">Design</h5>
+                                                <h5 class="text-dark font-weight-bolder">6</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                    </a>
                             </div>
-                            <div class="swiper-slide">
+                        </div>
+                         <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria7.index') }}">
                                 <div
                                     class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
                                     <div class="full-background bg-cover"
-                                        style="background-image: url('assets/img/img-1.jpg')"></div>
+                                        style="background-image: url('assets/img/PENELITIAN.jpg')"></div>
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
-                                                <h5 class="text-dark font-weight-bolder">Penelitian</h5>
+                                                <h5 class="text-dark font-weight-bolder">Penilitian</h5>
                                             </div>
                                             <div class="col-sm-3 ms-auto mt-auto">
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category
                                                 </p>
-                                                <h5 class="text-dark font-weight-bolder">Security</h5>
+                                                <h5 class="text-dark font-weight-bolder">7</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </a>
                             </div>
-                        </div>
+                            </div>
+                             <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria8.index') }}">
+                                <div
+                                    class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                                    <div class="full-background bg-cover"
+                                        style="background-image: url('assets/img/PM.png')"></div>
+                                    <div class="card-body text-start px-3 py-0 w-100">
+                                        <div class="row mt-12">
+                                            <div class="col-sm-3 mt-auto">
+                                                <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                                                <h5 class="text-white font-weight-bolder">Pengabdian Pada Masyarakat</h5>
+                                            </div>
+                                            <div class="col-sm-3 ms-auto mt-auto">
+                                                <p class="text-white opacity-6 text-xs font-weight-bolder mb-0">Category
+                                                </p>
+                                                <h5 class="text-white font-weight-bolder">8</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            </div>
+                            </div>
+                             <div class="swiper-slide">
+                                <div>
+                                    <a href="{{ route('kriteria9.index') }}">
+                                <div
+                                    class="card card-background shadow-none border-radius-xl card-background-after-none align-items-start mb-0">
+                                    <div class="full-background bg-cover"
+                                        style="background-image: url('assets/img/CT.jpg')"></div>
+                                    <div class="card-body text-start px-3 py-0 w-100">
+                                        <div class="row mt-12">
+                                            <div class="col-sm-3 mt-auto">
+                                                <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
+                                                <h5 class="text-dark font-weight-bolder">Capaian TRIDARMA</h5>
+                                            </div>
+                                            <div class="col-sm-3 ms-auto mt-auto">
+                                                <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Category
+                                                </p>
+                                                <h5 class="text-dark font-weight-bolder">9</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            </div>
+                            </div>
                     </div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>

@@ -12,8 +12,9 @@ use App\Http\Controllers\Kriteria6Controller;
 use App\Http\Controllers\Kriteria7Controller;
 use App\Http\Controllers\Kriteria8Controller;
 use App\Http\Controllers\Kriteria9Controller;
-use App\Http\Controllers\ValidasiKjrController;
+use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ValidasiDirController;
+use App\Http\Controllers\ValidasiKjrController;
 
 Route::get('/', function () {
     return view('index');
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     // Kriteria 1 (HANYA UNTUK A1)
     Route::middleware(['authorize:A1'])->group(function () {
         Route::get('/kriteria1/input', [KriteriaController::class, 'create'])->name('kriteria.1.input');
+        Route::post('/kriteria/submit/{id}', [KriteriaController::class, 'submitDetailKriteria'])->name('kriteria.submit');
         Route::get('/kriteria1', [KriteriaController::class, 'index'])->name('kriteria.index'); // Note: kriteria1.index is already defined above with the same controller and method. Consider aliasing or restructuring if they are different.
         Route::post('/kriteria1', [KriteriaController::class, 'store'])->name('kriteria1.store');
         Route::post('/kriteria1/list', [KriteriaController::class, 'list'])->name('kriteria.1.list');
@@ -111,8 +113,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Kriteria 7 (HANYA UNTUK A7)
     Route::middleware(['authorize:A7'])->group(function () {
-        Route::get('/kriteria7/input', [Kriteria7Controller::class, 'create'])->name('kriteria7.input'); // Consider naming kriteria.7.input for consistency
-        Route::get('/kriteria7', [Kriteria7Controller::class, 'index'])->name('kriteria7.index');
+        Route::get('/kriteria7/input', [Kriteria7Controller::class, 'create'])->name('kriteria.7.input'); // Consider naming kriteria.7.input for consistency
+        Route::get('/kriteria7', [Kriteria7Controller::class, 'index'])->name('kriteria.7.index');
         Route::post('/kriteria7', [Kriteria7Controller::class, 'store'])->name('kriteria7.store');
         Route::post('/kriteria7/list', [Kriteria7Controller::class, 'list'])->name('kriteria.7.list');
         Route::get('/kriteria7/{id}/show', [Kriteria7Controller::class, 'preview'])->name('kriteria7.detail');
@@ -124,7 +126,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Kriteria 8 (HANYA UNTUK A8)
     Route::middleware(['authorize:A8'])->group(function () {
-        Route::get('/kriteria8/input', [Kriteria8Controller::class, 'create'])->name('kriteria8.input'); // Consider naming kriteria.8.input for consistency
+        Route::get('/kriteria8/input', [Kriteria8Controller::class, 'create'])->name('kriteria.8.input'); // Consider naming kriteria.8.input for consistency
         Route::get('/kriteria8', [Kriteria8Controller::class, 'index'])->name('kriteria8.index');
         Route::post('/kriteria8', [Kriteria8Controller::class, 'store'])->name('kriteria8.store');
         Route::post('/kriteria8/list', [Kriteria8Controller::class, 'list'])->name('kriteria.8.list');
@@ -137,7 +139,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Kriteria 9 (HANYA UNTUK A9)
     Route::middleware(['authorize:A9'])->group(function () {
-        Route::get('/kriteria9/input', [Kriteria9Controller::class, 'create'])->name('kriteria9.input'); // Consider naming kriteria.9.input for consistency
+        Route::get('/kriteria9/input', [Kriteria9Controller::class, 'create'])->name('kriteria.9.input'); // Consider naming kriteria.9.input for consistency
         Route::get('/kriteria9', [Kriteria9Controller::class, 'index'])->name('kriteria9.index');
         Route::post('/kriteria9', [Kriteria9Controller::class, 'store'])->name('kriteria9.store');
         Route::post('/kriteria9/list', [Kriteria9Controller::class, 'list'])->name('kriteria.9.list');
@@ -166,7 +168,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/validasiDirektur/update', [ValidasiDirController::class, 'update'])->name('validasi.update'); // Removed duplicate middleware
     });
 
-    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9'])->group(function () {
+    Route::middleware(['authorize:A1,A2,A3,A4,A5,A6,A7,A8,A9,DKT'])->group(function () {
         Route::get('/kriteria1', [KriteriaController::class, 'index'])->name('kriteria.index');
         Route::post('/kriteria1/list', [KriteriaController::class, 'list'])->name('kriteria.1.list');
         Route::get('/kriteria1/{id}/show', [KriteriaController::class, 'preview'])->name('kriteria1.preview');
@@ -228,5 +230,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kriteria9/{id}/show', [Kriteria9Controller::class, 'preview'])->name('kriteria9.preview');
         Route::get('/kriteria9/{id}/preview-pdf', [Kriteria9Controller::class, 'previewpdf'])->name('kriteria9.preview-pdf');
     });
+
+    Route::get('superadmin/', [SuperAdminController::class, 'index'])->name('superadmin.index');
+    Route::middleware(['auth'])->group(function () {
+    Route::get('superadmin/users/create', [SuperAdminController::class, 'create'])->name('superadmin.users.create');
+    Route::post('superadmin/users', [SuperAdminController::class, 'store'])->name('superadmin.users.store');
+    Route::get('superadmin/users/{id}/edit', [SuperAdminController::class, 'edit'])->name('superadmin.users.edit');
+    Route::put('superadmin/users/{id}', [SuperAdminController::class, 'update'])->name('superadmin.users.update');
+    Route::delete('superadmin/users/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.users.destroy');
+});
 
 });
