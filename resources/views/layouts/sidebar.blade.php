@@ -14,6 +14,10 @@
     /* Latar belakang gelap yang solid */
     .sidenav {
         background-color: #0f172a;
+        transition: transform 0.35s ease-in-out;
+        /* Mengatur layout flexbox untuk sidebar agar scroll bekerja dengan baik */
+        display: flex;
+        flex-direction: column;
     }
 
     /* Memberi jarak antar setiap item menu utama */
@@ -89,25 +93,105 @@
         background-color: #334155;
         box-shadow: none;
     }
+
+    #sidenav-collapse-main {
+        flex-grow: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #sidenav-collapse-main::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #sidenav-collapse-main::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    #sidenav-collapse-main::-webkit-scrollbar-thumb {
+        background-color: #334155;
+        border-radius: 10px;
+    }
+
+    #sidenav-collapse-main::-webkit-scrollbar-thumb:hover {
+        background-color: #4a5568;
+    }
+
+    .sidenav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.35s ease-in-out;
+    }
+
+    .sidenav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sidenav-header .btn-close {
+        display: none;
+    }
+
+    @media (max-width: 1199.98px) {
+        .sidenav {
+            transform: translateX(-100%);
+            z-index: 1050;
+        }
+
+        .sidenav.active {
+            transform: translateX(0);
+        }
+
+        .sidenav-header .btn-close {
+            display: block;
+        }
+    }
 </style>
 
+<div class="sidenav-overlay" id="sidenav-overlay"></div>
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 fixed-start" id="sidenav-main">
-    <div class="sidenav-header" style="height: 70px;">
+    <div class="sidenav-header d-flex align-items-center justify-content-between" style="height: 70px;">
         <a class="navbar-brand d-flex align-items-center m-0 px-4" href="#">
             <span class="font-weight-bold text-lg text-white">Sistem Akreditasi</span>
         </a>
+        <button class="btn-close btn-close-white d-lg-none me-3" type="button" id="sidenav-close-button"></button>
     </div>
 
-    {{-- Wrapper utama menu --}}
     <div class="collapse navbar-collapse px-3 w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
-                    <div class="nav-icon"><i class="bi bi-grid-1x2"></i></div>
-                    <span class="nav-link-text">Dashboard</span>
-                </a>
-            </li>
+            @auth
+                @php
+                    $dashboardRoute = 'dashboard';
+                    if (Auth::user()->role) {
+                        switch (Auth::user()->role->role_kode) {
+                            case 'KJR':
+                                $dashboardRoute = 'dashboard.kajur';
+                                break;
+                            case 'DKT':
+                                $dashboardRoute = 'dashboard.direktur';
+                                break;
+                        }
+                    }
+                @endphp
+
+                @if ($dashboardRoute)
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}"
+                            href="{{ route($dashboardRoute) }}">
+                            <div class="nav-icon"><i class="bi bi-grid-1x2"></i></div>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                @endif
+            @endauth
 
             <li class="nav-item">
                 <a class="nav-link non-interactive">
@@ -115,63 +199,68 @@
                     <span class="nav-link-text">Kriteria</span>
                 </a>
 
-                <div>
-                    <div class="submenu-wrapper mt-2">
-                        <ul class="navbar-nav">
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria.index') }}">Kriteria 1</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria2.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria2.index') }}">Kriteria 2</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria3.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria3.index') }}">Kriteria 3</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria4.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria4.index') }}">Kriteria 4</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria5.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria5.index') }}">Kriteria 5</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria6.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria6.index') }}">Kriteria 6</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria7.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria7.index') }}">Kriteria 7</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria8.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria8.index') }}">Kriteria 8</a></li>
-                            <li class="nav-item"><a
-                                    class="nav-link {{ request()->routeIs('kriteria9.index') ? 'active' : '' }}"
-                                    href="{{ route('kriteria9.index') }}">Kriteria 9</a></li>
-                        </ul>
-                    </div>
+                <div class="submenu-wrapper mt-2">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria.index') }}">Kriteria 1</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria2.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria2.index') }}">Kriteria 2</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria3.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria3.index') }}">Kriteria 3</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria4.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria4.index') }}">Kriteria 4</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria5.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria5.index') }}">Kriteria 5</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria6.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria6.index') }}">Kriteria 6</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria7.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria7.index') }}">Kriteria 7</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria8.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria8.index') }}">Kriteria 8</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link {{ request()->routeIs('kriteria9.index') ? 'active' : '' }}"
+                                href="{{ route('kriteria9.index') }}">Kriteria 9</a></li>
+                    </ul>
                 </div>
             </li>
 
-            {{-- ====================================================== --}}
-            {{-- [MODIFIKASI] BLOK VALIDASI DENGAN IKON SEMULA --}}
-            {{-- ====================================================== --}}
+            @if (Auth::user()->role->role_kode == 'KJR')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('validasikjr.index') ? 'active' : '' }}"
+                        href="{{ route('validasikjr.index') }}">
+                        <div class="nav-icon"><i class="bi bi-person-check"></i></div>
+                        <span class="nav-link-text">Validasi Kajur</span>
+                    </a>
+                </li>
+            @endif
+
+            @if (Auth::user()->role->role_kode == 'DKT')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('validasi.index') ? 'active' : '' }}"
+                        href="{{ route('validasi.index') }}">
+                        <div class="nav-icon"><i class="bi bi-patch-check"></i></div>
+                        <span class="nav-link-text">Validasi Direktur</span>
+                    </a>
+                </li>
+            @endif
+
+            {{-- [MODIFIKASI] Menampilkan menu Manage User untuk semua role --}}
             <li class="nav-item">
-                {{-- Ikon dikembalikan menjadi 'bi-person-check' --}}
-                <a class="nav-link {{ request()->routeIs('validasikjr.index') ? 'active' : '' }}"
-                    href="{{ route('validasikjr.index') }}">
-                    <div class="nav-icon"><i class="bi bi-person-check"></i></div>
-                    <span class="nav-link-text">Validasi Kajur</span>
+                {{-- Pastikan Anda membuat rute dengan nama 'users.index' di web.php --}}
+                <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                    href="{{-- route('users.index') --}}#">
+                    <div class="nav-icon"><i class="bi bi-people-fill"></i></div>
+                    <span class="nav-link-text">Manage User</span>
                 </a>
             </li>
-            <li class="nav-item">
-                {{-- Ikon dikembalikan menjadi 'bi-patch-check' --}}
-                <a class="nav-link {{ request()->routeIs('validasi.index') ? 'active' : '' }}"
-                    href="{{ route('validasi.index') }}">
-                    <div class="nav-icon"><i class="bi bi-patch-check"></i></div>
-                    <span class="nav-link-text">Validasi Direktur</span>
-                </a>
-            </li>
-            {{-- ====================================================== --}}
-            {{-- AKHIR BLOK MODIFIKASI --}}
-            {{-- ====================================================== --}}
 
             <li class="nav-item">
                 <a class="nav-link" href="#"
@@ -187,3 +276,40 @@
         @csrf
     </form>
 </aside>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidenav = document.getElementById('sidenav-main');
+        const overlay = document.getElementById('sidenav-overlay');
+
+        const toggler = document.getElementById('sidenav-toggler');
+
+        const closeButton = document.getElementById('sidenav-close-button');
+
+        function openSidenav() {
+            if (sidenav && overlay) {
+                sidenav.classList.add('active');
+                overlay.classList.add('active');
+            }
+        }
+
+        function closeSidenav() {
+            if (sidenav && overlay) {
+                sidenav.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        if (toggler) {
+            toggler.addEventListener('click', openSidenav);
+        }
+
+        if (closeButton) {
+            closeButton.addEventListener('click', closeSidenav);
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', closeSidenav);
+        }
+    });
+</script>

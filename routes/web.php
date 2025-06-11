@@ -25,12 +25,21 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postlogin'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// ROUTE TERPROTEKSI (HANYA UNTUK USER YANG SUDAH LOGIN)
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth'])->group(function () {
 
-    // Dashboard
+    // --- PERBAIKAN RUTE DASHBOARD ---
+    // Rute utama /dashboard yang akan diatur oleh method index()
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Rute spesifik untuk setiap role agar redirect dari AuthController berfungsi
+    Route::get('/dashboard/kajur', [DashboardController::class, 'kajurDashboard'])->name('dashboard.kajur');
+    Route::get('/dashboard/direktur', [DashboardController::class, 'direkturDashboard'])->name('dashboard.direktur');
+    Route::get('/dashboard/anggota', [DashboardController::class, 'anggotaDashboard'])->name('dashboard.anggota');
 
     // Kriteria 1 (HANYA UNTUK A1)
     Route::middleware(['authorize:A1'])->group(function () {
@@ -233,11 +242,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('superadmin/', [SuperAdminController::class, 'index'])->name('superadmin.index');
     Route::middleware(['auth'])->group(function () {
-    Route::get('superadmin/users/create', [SuperAdminController::class, 'create'])->name('superadmin.users.create');
-    Route::post('superadmin/users', [SuperAdminController::class, 'store'])->name('superadmin.users.store');
-    Route::get('superadmin/users/{id}/edit', [SuperAdminController::class, 'edit'])->name('superadmin.users.edit');
-    Route::put('superadmin/users/{id}', [SuperAdminController::class, 'update'])->name('superadmin.users.update');
-    Route::delete('superadmin/users/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.users.destroy');
-});
-
+        Route::get('superadmin/users/create', [SuperAdminController::class, 'create'])->name('superadmin.users.create');
+        Route::post('superadmin/users', [SuperAdminController::class, 'store'])->name('superadmin.users.store');
+        Route::get('superadmin/users/{id}/edit', [SuperAdminController::class, 'edit'])->name('superadmin.users.edit');
+        Route::put('superadmin/users/{id}', [SuperAdminController::class, 'update'])->name('superadmin.users.update');
+        Route::delete('superadmin/users/{id}', [SuperAdminController::class, 'destroy'])->name('superadmin.users.destroy');
+    });
 });
