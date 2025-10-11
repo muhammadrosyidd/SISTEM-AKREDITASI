@@ -28,7 +28,7 @@
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" rel="tooltip" title="POLINEMA" data-placement="bottom" target="_blank">
-          <img src="../public/assets/img/polinema_logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+          <img src="assets/img/polinema_logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
           D4 SISTEM INFORMASI BISNIS
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
