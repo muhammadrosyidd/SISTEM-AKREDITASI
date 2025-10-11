@@ -7,12 +7,18 @@ Dengan adanya sistem ini, diharapkan proses akreditasi tidak lagi dilakukan seca
 Tujuan dan Sasaran
         
 Tujuan utama dari proyek ini adalah merancang dan mengimplementasikan sistem akreditasi berbasis web yang dapat mendukung proses akreditasi secara lebih efisien, terdokumentasi, dan terstandarisasi di lingkungan institusi pendidikan tinggi. 
-    Sasaran khusus proyek ini meliputi:
-    a.	Menyediakan platform input data akreditasi sesuai kriteria BAN-PT.
-    b.	Memungkinkan user dengan role tertentu (A1–A5) untuk mengunggah, mengedit, atau menghapus data akreditasi.
-    c.	Menyediakan fitur validasi data oleh Koordinator Jurusan (KJR) sebelum finalisasi.
-    d.	Menghasilkan laporan eviden yang dapat diunduh dalam format PDF.
-    e.	Menyediakan histori perubahan data untuk kebutuhan tracking revisi.
+Sasaran khusus proyek ini meliputi:
+
+a.	Menyediakan platform input data akreditasi sesuai kriteria BAN-PT.
+
+b.	Memungkinkan user dengan role tertentu (A1–A5) untuk mengunggah, mengedit, atau menghapus data akreditasi.
+
+c.	Menyediakan fitur validasi data oleh Koordinator Jurusan (KJR) sebelum finalisasi.
+
+d.	Menghasilkan laporan eviden yang dapat diunduh dalam format PDF.
+
+e.	Menyediakan histori perubahan data untuk kebutuhan tracking revisi.
+
 
 
 
