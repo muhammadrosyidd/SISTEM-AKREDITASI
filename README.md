@@ -1,6 +1,6 @@
 Deskripsi Proyek
     
-    Sistem Akreditasi merupakan sebuah sistem informasi berbasis web yang dirancang untuk membantu proses pengumpulan, penilaian, dan pelaporan data akreditasi secara digital dan terstruktur. Sistem ini bertujuan untuk mempermudah para dosen (anggota tim akreditasi)         dalam menginput dan mengelola data eviden berdasarkan kriteria yang ditentukan, serta memungkinkan validator atau koordinator jurusan untuk memverifikasi data tersebut secara efisien.
+    Sistem Akreditasi merupakan sebuah sistem informasi berbasis web yang dirancang untuk membantu proses pengumpulan, penilaian, dan pelaporan data akreditasi secara digital dan terstruktur. Sistem ini bertujuan untuk mempermudah para dosen (anggota tim akreditasi) dalam menginput dan mengelola data eviden berdasarkan kriteria yang ditentukan, serta memungkinkan validator atau koordinator jurusan untuk memverifikasi data tersebut secara efisien.
     Dengan adanya sistem ini, diharapkan proses akreditasi tidak lagi dilakukan secara manual menggunakan dokumen fisik, sehingga lebih menghemat waktu, meminimalisir kesalahan input, dan meningkatkan transparansi serta akuntabilitas data
 
 
@@ -22,6 +22,7 @@ Dokumentasi Proyek
 ![Screenshoot Landingpage](images/01.png)
 
     Login sebagai Anggota
+    
        Dashboard 
 ![Screenshoot DashboardAnggota](images/02.png)
 
@@ -34,6 +35,7 @@ Dokumentasi Proyek
 
     
     Login sebagai Kajur (Validator 1)
+    
        Dashboard
 ![Screenshoot kjr1](images/06.png)
 
@@ -42,6 +44,7 @@ Dokumentasi Proyek
 
     
     Login sebagai Direktur (Validator 2)
+    
        Dashboard
 ![Screenshoot dkt](images/08.png)
 
@@ -50,6 +53,7 @@ Dokumentasi Proyek
 
     
     Login sebagai Super Admin
+    
        Page untuk edit user
 ![Screenshoot adm](images/11.png)
 ![Screenshoot adm1](images/12.png)
