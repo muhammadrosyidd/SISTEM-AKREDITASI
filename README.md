@@ -1,9 +1,11 @@
 Deskripsi Proyek
-    Sistem Akreditasi merupakan sebuah sistem informasi berbasis web yang dirancang untuk membantu proses pengumpulan, penilaian, dan pelaporan data akreditasi secara digital dan terstruktur. Sistem ini bertujuan untuk mempermudah para dosen (anggota tim akreditasi) dalam menginput dan mengelola data eviden berdasarkan kriteria yang ditentukan, serta memungkinkan validator atau koordinator jurusan untuk memverifikasi data tersebut secara efisien.
+    
+    Sistem Akreditasi merupakan sebuah sistem informasi berbasis web yang dirancang untuk membantu proses pengumpulan, penilaian, dan pelaporan data akreditasi secara digital dan terstruktur. Sistem ini bertujuan untuk mempermudah para dosen (anggota tim akreditasi)         dalam menginput dan mengelola data eviden berdasarkan kriteria yang ditentukan, serta memungkinkan validator atau koordinator jurusan untuk memverifikasi data tersebut secara efisien.
     Dengan adanya sistem ini, diharapkan proses akreditasi tidak lagi dilakukan secara manual menggunakan dokumen fisik, sehingga lebih menghemat waktu, meminimalisir kesalahan input, dan meningkatkan transparansi serta akuntabilitas data
 
 
 Tujuan dan Sasaran
+        
         Tujuan utama dari proyek ini adalah merancang dan mengimplementasikan sistem akreditasi berbasis web yang dapat mendukung proses akreditasi secara lebih efisien, terdokumentasi, dan terstandarisasi di lingkungan institusi pendidikan tinggi. 
     Sasaran khusus proyek ini meliputi:
     a.	Menyediakan platform input data akreditasi sesuai kriteria BAN-PT.
@@ -22,9 +24,11 @@ Dokumentasi Proyek
     Login sebagai Anggota
        Dashboard 
 ![Screenshoot DashboardAnggota](images/02.png)
+
        Page untuk input data
 ![Screenshoot Input](images/03.png)
-![Screenshoot input1](images/04.png)
+![Screenshoot input1](images/04.jpg)
+
        Preview Dokumen
 ![Screenshoot preview](images/05.png)
 
@@ -32,6 +36,7 @@ Dokumentasi Proyek
     Login sebagai Kajur (Validator 1)
        Dashboard
 ![Screenshoot kjr1](images/06.png)
+
        Page untuk validasi Dokumen
 ![Screenshoot kjr1](images/07.png)
 
@@ -39,6 +44,7 @@ Dokumentasi Proyek
     Login sebagai Direktur (Validator 2)
        Dashboard
 ![Screenshoot dkt](images/08.png)
+
        Page untuk validasi Dokumen
 ![Screenshoot dkt1](images/09.png)
 
